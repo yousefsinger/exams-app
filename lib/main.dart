@@ -1,4 +1,4 @@
-import 'package:exam_app/config/di.dart';
+import 'package:exam_app/config/di/di.dart';
 import 'package:exam_app/core/values/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
