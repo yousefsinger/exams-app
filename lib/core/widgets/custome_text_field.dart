@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomTextField extends StatelessWidget {
   final String label;
   final String hint;
+  final String errorText;
   final TextInputType keyboardType;
   final bool isObscureText;
   final String? Function(String?)? validator;
@@ -17,6 +18,7 @@ class CustomTextField extends StatelessWidget {
     this.isObscureText = false,
     this.validator,
     this.controller,
+    required this.errorText,
   });
 
   @override
@@ -28,7 +30,7 @@ class CustomTextField extends StatelessWidget {
         obscureText: isObscureText,
         validator: validator,
         controller: controller,
-        decoration: InputDecoration(labelText: label, hintText: hint),
+        decoration: InputDecoration(labelText: label, hintText: hint,errorText: errorText),
       ),
     );
   }

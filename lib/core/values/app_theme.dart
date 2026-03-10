@@ -37,6 +37,7 @@ class AppTheme {
       ),
 
       hintStyle: AppStyles.hintText14LightGray,
+      errorStyle: AppStyles.errorText,
       floatingLabelBehavior: FloatingLabelBehavior.always,
       floatingLabelStyle: WidgetStateTextStyle.resolveWith((states) {
         if (states.contains(WidgetState.error)) {
