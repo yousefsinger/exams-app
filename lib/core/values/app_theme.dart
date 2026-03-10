@@ -46,5 +46,12 @@ class AppTheme {
         return AppStyles.labelText12DarkGray;
       }),
     ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.whiteColor,
+      elevation: 0,
+      titleTextStyle: AppStyles.medium20Black,
+      iconTheme: IconThemeData(color: AppColors.blackColor,size: 24),
+
+    )
   );
 }
