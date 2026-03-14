@@ -1,11 +1,13 @@
 import 'package:exam_app/config/di/di.dart';
+import 'package:exam_app/core/values/app_routes.dart';
 import 'package:exam_app/core/values/app_theme.dart';
+import 'package:exam_app/features/signup/presentation/pages/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupDI();
+  await setupDI();
   runApp(ExamApp());
 }
 
@@ -20,6 +22,10 @@ class ExamApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
+          initialRoute: login,
+          routes: {
+            signup: (_) => const SignUpScreen(),
+          },
         );
       },
     );
