@@ -8,26 +8,28 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupDI();
-  runApp(ExamApp());
+  runApp(const ExamApp());
 }
 
 class ExamApp extends StatelessWidget {
+  const ExamApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          initialRoute: login,
-          routes: {
-            signup: (_) => const SignUpScreen(),
-          },
-        );
-      },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightTheme,
+        initialRoute: signup,
+        routes: {
+          signup: (_) => const SignUpScreen(),
+          // login: (_) => const LoginScreen(),  // add when ready
+        },
+      ),
+      builder: (context, child) => child!,
     );
   }
 }
