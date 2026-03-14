@@ -1,19 +1,13 @@
-import 'package:dio/dio.dart';
-import 'package:exam_app/config/cashe/secure_storage.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 
-import '../api/api_client.dart';
+import 'di.config.dart';
 
-var getIt = GetIt.instance;
+final getIt = GetIt.instance;
 
-Future<void> setupDI() async {
-  getIt.registerLazySingleton<Dio>(() => Dio());
-  getIt.registerLazySingleton<
-      FlutterSecureStorage>(() => const FlutterSecureStorage());
-
-  getIt.registerLazySingleton<ApiClient>(() => ApiClient(dio: getIt()));
-
-  getIt.registerLazySingleton<SecureStorage>(() =>
-      SecureStorage(storage: getIt()));
-}
+@InjectableInit(
+  initializerName: 'init', // default
+  preferRelativeImports: true, // default
+  asExtension: true, // default
+)
+void configureDependencies() => getIt.init();

@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final bool isObscureText;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+  Widget? suffixIcon;
 
   CustomTextField({
     super.key,
@@ -18,7 +19,9 @@ class CustomTextField extends StatelessWidget {
     this.isObscureText = false,
     this.validator,
     this.controller,
+    this.suffixIcon,
     required this.errorText,
+
   });
 
   @override
@@ -30,7 +33,12 @@ class CustomTextField extends StatelessWidget {
         obscureText: isObscureText,
         validator: validator,
         controller: controller,
-        decoration: InputDecoration(labelText: label, hintText: hint,errorText: errorText),
+        decoration: InputDecoration(
+          labelText: label,
+          hintText: hint,
+          errorText: errorText,
+          suffixIcon:suffixIcon
+        ),
       ),
     );
   }
