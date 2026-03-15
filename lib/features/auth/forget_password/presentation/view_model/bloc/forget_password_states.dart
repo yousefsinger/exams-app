@@ -26,6 +26,7 @@ class ForgetPasswordStates {
     this.isButtonEnabled = false,
     this.currentEmail,
   });
+
   ForgetPasswordStates copyWith({
     BaseState<ForgetPasswordModel>? forgetPasswordState,
     BaseState<VerifyResetCodeModel>? verifyResetCodeState,
@@ -43,7 +44,7 @@ class ForgetPasswordStates {
       resendCodeState: resendCodeState ?? this.resendCodeState,
       isNewPasswordObscure: isNewPasswordObscure ?? this.isNewPasswordObscure,
       isConfirmPasswordObscure:
-      isConfirmPasswordObscure ?? this.isConfirmPasswordObscure,
+          isConfirmPasswordObscure ?? this.isConfirmPasswordObscure,
       isButtonEnabled: isButtonEnabled ?? this.isButtonEnabled,
       currentEmail: currentEmail ?? this.currentEmail,
     );

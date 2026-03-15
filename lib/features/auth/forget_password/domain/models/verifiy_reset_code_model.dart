@@ -1,4 +1,3 @@
-
 class VerifyResetCodeModel {
   final String status;
 

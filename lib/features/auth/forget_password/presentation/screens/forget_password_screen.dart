@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../../core/values/app_colors.dart';
 import '../../../../../core/values/validators.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
@@ -18,7 +19,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ForgetPasswordViewModel, ForgetPasswordStates>(
       listenWhen: (previous, current) =>
-      previous.forgetPasswordState != current.forgetPasswordState,
+          previous.forgetPasswordState != current.forgetPasswordState,
       listener: (context, state) {
         final forgetState = state.forgetPasswordState;
 
@@ -35,11 +36,9 @@ class ForgetPasswordScreen extends StatelessWidget {
         }
 
         if (forgetState?.errorMessage != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(forgetState!.errorMessage!),
-            ),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(forgetState!.errorMessage!)));
         }
       },
       builder: (context, state) {
@@ -64,7 +63,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                 children: [
                   CustomForgetPasswordTextWidget(
                     text1: 'Forget password',
-                    text2: 'Please enter your email associated to\n  your account',
+                    text2:
+                        'Please enter your email associated to\n  your account',
                   ),
                   CustomTextField(
                     controller: viewModel.emailController,
@@ -76,9 +76,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   CustomElevatedButton(
                     text: 'Continue',
                     onPressed: () {
-                      viewModel.doIntent(
-                        ValidateEmailEvent(),
-                      );
+                      viewModel.doIntent(ValidateEmailEvent());
                     },
                   ),
                 ],

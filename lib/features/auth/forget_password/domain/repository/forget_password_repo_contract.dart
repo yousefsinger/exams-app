@@ -8,12 +8,14 @@ import '../models/verifiy_reset_code_model.dart';
 
 abstract class ForgetPasswordRepoContract {
   Future<BaseResponse<ForgetPasswordModel>> forgetPassword(
-      ForgetPasswordRequest request,
-      );
+    ForgetPasswordRequest request,
+  );
+
   Future<BaseResponse<VerifyResetCodeModel>> verifyResetCode(
-      VerifyResetCodeRequest request,
-      );
+    VerifyResetCodeRequest request,
+  );
+
   Future<BaseResponse<ResetPasswordModel>> resetPassword(
-      ResetPasswordRequest request,
-      );
+    ResetPasswordRequest request,
+  );
 }

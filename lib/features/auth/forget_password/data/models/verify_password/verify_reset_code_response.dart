@@ -6,12 +6,9 @@ class VerifyResetCodeResponse {
   VerifyResetCodeResponse({this.status});
 
   factory VerifyResetCodeResponse.fromJson(Map<String, dynamic> json) =>
-      VerifyResetCodeResponse(
-        status: json['status'] as String?,
-      );
+      VerifyResetCodeResponse(status: json['status'] as String?);
+
   VerifyResetCodeModel toModel() {
-    return VerifyResetCodeModel(
-      status: status ?? 'success',
-    );
+    return VerifyResetCodeModel(status: status ?? 'success');
   }
 }

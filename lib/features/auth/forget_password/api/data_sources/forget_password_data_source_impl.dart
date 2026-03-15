@@ -23,8 +23,8 @@ class ForgetPasswordRemoteDatasourceImple
 
   @override
   Future<BaseResponse<ForgetPasswordResponse>> forgetPassword(
-      ForgetPasswordRequest request,
-      ) async {
+    ForgetPasswordRequest request,
+  ) async {
     try {
       final response = await _apiClient.forgetPassword(request);
       return SuccessResponse(data: response);
@@ -37,8 +37,8 @@ class ForgetPasswordRemoteDatasourceImple
 
   @override
   Future<BaseResponse<ResetPasswordResponse>> resetPassword(
-      ResetPasswordRequest request,
-      ) async {
+    ResetPasswordRequest request,
+  ) async {
     try {
       final response = await _apiClient.resetPassword(request);
 
@@ -54,8 +54,8 @@ class ForgetPasswordRemoteDatasourceImple
 
   @override
   Future<BaseResponse<VerifyResetCodeResponse>> verifyResetCode(
-      VerifyResetCodeRequest request,
-      ) async {
+    VerifyResetCodeRequest request,
+  ) async {
     try {
       final response = await _apiClient.verifyResetCode(request);
 
