@@ -1,11 +1,7 @@
-sealed class BaseResponse<T> {}
+class BaseState<T> {
+  bool? isLoading;
+  String? errorMessage;
+  T? data;
 
-
-class SuccessBaseResponse<T> extends BaseResponse<T>{
-  T data;
-  SuccessBaseResponse({required this.data});
-}
-class ErrorBaseResponse<T> extends BaseResponse<T>{
-  String errorMsg;
-  ErrorBaseResponse({required this.errorMsg});
+  BaseState({this.isLoading = false, this.errorMessage, this.data});
 }

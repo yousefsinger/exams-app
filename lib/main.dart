@@ -1,11 +1,12 @@
 import 'package:exam_app/config/di/di.dart';
 import 'package:exam_app/core/values/app_theme.dart';
+import 'package:exam_app/features/login/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  setupDI();
+  configureDependencies();
   runApp(ExamApp());
 }
 
@@ -20,6 +21,7 @@ class ExamApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
+          home: const LoginScreen(),
         );
       },
     );
