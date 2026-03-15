@@ -1,13 +1,12 @@
 sealed class BaseResponse<T> {}
+class SuccessResponse<T> extends BaseResponse<T> {
+  final T data;
 
-class SuccessBaseResponse<T> extends BaseResponse<T> {
-  T data;
-
-  SuccessBaseResponse({required this.data});
+  SuccessResponse({required this.data});
 }
 
-class ErrorBaseResponse<T> extends BaseResponse<T> {
-  String errorMsg;
+class ErrorResponse<T> extends BaseResponse<T> {
 
-  ErrorBaseResponse({required this.errorMsg});
+  final String errorMessage;
+  ErrorResponse({required this.errorMessage});
 }

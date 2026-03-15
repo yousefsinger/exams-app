@@ -51,6 +51,7 @@ class AppTheme {
       elevation: 0,
       titleTextStyle: AppStyles.medium20Black,
       iconTheme: IconThemeData(color: AppColors.blackColor,size: 24),
+      titleSpacing: 0,
 
     )
   );
