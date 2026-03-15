@@ -26,7 +26,7 @@ class ExamApp extends StatelessWidget {
         initialRoute: signup,
         routes: {
           signup: (_) => const SignUpScreen(),
-          // login: (_) => const LoginScreen(),  // add when ready
+           login: (_) => const LoginScreen(),
         },
       ),
       builder: (context, child) => child!,
