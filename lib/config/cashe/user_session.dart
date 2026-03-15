@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../../features/login/domain/model/user.dart';
+import '../../features/auth/login/domain/model/user.dart';
 
 @singleton
 class UserSession {

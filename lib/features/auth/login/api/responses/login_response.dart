@@ -1,4 +1,4 @@
-import 'package:exam_app/features/login/data/model/user_dto.dart';
+import '../../data/model/user_dto.dart';
 
 class LoginResponse {
   final String? message;

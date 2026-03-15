@@ -1,4 +1,4 @@
-import '../../../../../config/api/base_states.dart';
+import '../../../../../../config/api/base_states.dart';
 import '../../../domain/model/user.dart';
 
 class LoginStates {

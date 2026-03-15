@@ -5,9 +5,12 @@ import 'package:exam_app/features/auth/forget_password/presentation/screens/forg
 import 'package:exam_app/features/auth/forget_password/presentation/screens/otp_screen.dart';
 import 'package:exam_app/features/auth/forget_password/presentation/screens/reset_password_screen.dart';
 import 'package:exam_app/features/auth/forget_password/presentation/view_model/bloc/forget_password_view_model.dart';
+import 'package:exam_app/features/auth/login/presentation/view_model/bloc/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'features/auth/login/presentation/screens/login_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +21,9 @@ void main() {
       providers: [
         BlocProvider(
           create: (_) => getIt<ForgetPasswordViewModel>(),
+        ),
+        BlocProvider(
+          create: (_) => getIt<LoginViewModel>(),
         ),
       ],
       child: const ExamApp(),
@@ -40,12 +46,12 @@ class ExamApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
 
           routes: {
+            AppRoutes.login: (_) => const LoginScreen(),
             AppRoutes.forgetPassword: (_) => const ForgetPasswordScreen(),
             AppRoutes.otp: (_) => const OtpScreen(),
             AppRoutes.resetPassword: (_) => const ResetPasswordScreen(),
           },
-
-          initialRoute: AppRoutes.forgetPassword,
+          initialRoute: AppRoutes.login,
         );
       },
     );
