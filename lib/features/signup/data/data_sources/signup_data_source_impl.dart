@@ -15,7 +15,7 @@ class SignUpDataSourceImpl implements SignUpDataSourceContract {
     try {
       final model = SignUpRequestModel.fromEntity(entity);
       final response = await _apiClient.dio.post(
-        'https://exam.elevateegy.com/api/v1/auth/signup',
+        '/auth/signup',
         data: model.toJson(),
       );
       return SuccessBaseResponse(data: response.data);

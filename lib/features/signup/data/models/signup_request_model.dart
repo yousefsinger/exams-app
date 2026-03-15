@@ -17,7 +17,7 @@ class SignUpRequestModel extends SignUpEntity {
     'lastName': lastName,
     'email': email,
     'password': password,
-    'confirmPassword': confirmPassword,
+    'rePassword': confirmPassword,
     'phone': phoneNumber,
   };
 
