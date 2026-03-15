@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../config/di/di.dart';
 import '../../../../../core/values/app_colors.dart';
 import '../../../../../core/values/app_routes.dart';
+import '../../../../../core/values/app_styles.dart';
 import '../../../../../core/values/validators.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../../core/widgets/custom_text_link.dart';
@@ -58,12 +59,12 @@ class LoginScreen extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   icon: const Icon(
-                      Icons.arrow_back_ios_new_outlined, color: Colors.black),
+                      Icons.arrow_back_ios_new_outlined,
+                      color: AppColors.blackColor),
                 ),
-                title: const Text(
+                title: Text(
                   'Login',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                    style: AppStyles.medium20Black
                 ),
               ),
               body: Padding(
@@ -146,8 +147,7 @@ class LoginScreen extends StatelessWidget {
                           onPressed: state.isButtonEnabled
                               ? () {
                             viewModel.doIntent(ValidateLoginEvent());
-                          }
-                              : null,
+                          } : null,
                         ),
                         SizedBox(height: 12.h),
                         Row(
