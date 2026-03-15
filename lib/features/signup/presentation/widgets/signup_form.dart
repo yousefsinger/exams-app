@@ -50,8 +50,8 @@ class _SignUpFormState extends State<SignUpForm> {
               label: 'User name',
               hint: 'Enter you user name',
               controller: _usernameController,
-              errorText: v.usernameError ?? '',
-              onChanged: (val) => cubit.onUsernameChanged(val ?? ''),
+              errorText: v.usernameError,
+              onChanged: (val) => cubit.onUsernameChanged(val!),
             ),
 
             // ── First name & Last name ────────────────────────────────
@@ -74,7 +74,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   Expanded(
                     child: TextFormField(
                       controller: _lastNameController,
-                      onChanged: (val) => cubit.onLastNameChanged(val ?? '' ),
+                      onChanged: (val) => cubit.onLastNameChanged(val),
                       decoration: InputDecoration(
                         labelText: 'Last name',
                         hintText: 'Enter last name',
@@ -92,8 +92,8 @@ class _SignUpFormState extends State<SignUpForm> {
               hint: 'Enter you email',
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
-              errorText: v.emailError ?? '',
-              onChanged: (val) => cubit.onEmailChanged(val ?? '' ),
+              errorText: v.emailError,
+              onChanged: (val) => cubit.onEmailChanged(val!),
             ),
 
             // ── Password & Confirm Password ───────────────────────────
@@ -159,11 +159,11 @@ class _SignUpFormState extends State<SignUpForm> {
               hint: 'Enter phone number',
               controller: _phoneController,
               keyboardType: TextInputType.phone,
-              errorText: v.phoneError ?? '',
-                onChanged: (val) => cubit.onPhoneChanged(val ?? ''),
+              errorText: v.phoneError,
+                onChanged: (val) => cubit.onPhoneChanged(val!),
             ),
 
-            // ── Signup Button ─────────────────────────────────────────
+            // ── Signup Button ────────────────────────────────────────
             CustomElevatedButton(
               text: isLoading ? 'Loading...' : 'Signup',
               isValid: !isLoading,
