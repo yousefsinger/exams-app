@@ -1,4 +1,3 @@
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -15,14 +14,18 @@ import 'forget_password_states.dart';
 @injectable
 class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
   final ForgetPasswordUseCase _forgetPasswordUseCase;
+
   final GlobalKey<FormState> emailFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> resetPasswordFormKey = GlobalKey<FormState>();
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController verifyCodeController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
   TextEditingController();
+
   String? userEmail;
+
   ForgetPasswordViewModel(this._forgetPasswordUseCase)
       : super(ForgetPasswordStates());
 
@@ -30,29 +33,37 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
     switch (event) {
       case SubmitEmailEvent():
         _forgetPassword(event);
+
       case VerifyCodeEvent():
         _verifyResetCode(event);
+
       case ResetPasswordEvent():
         _resetPassword(event);
+
       case ToggleNewPasswordVisibilityEvent():
         _toggleNewPasswordVisibility();
+
       case ToggleConfirmPasswordVisibilityEvent():
         _toggleConfirmPasswordVisibility();
+
       case UpdateButtonState():
         emit(state.copyWith());
+
       case ValidateEmailEvent():
         userEmail = emailController.text.trim();
         _validateEmail();
+
       case ValidateCodeEvent():
         _validateCode();
+
       case ValidateNewPasswordEvent():
         _validateNewPassword();
+
       case ResendCodeEvent():
         _resendCode(event);
+
       case ResetResendCodeState():
-        emit(
-          state.copyWith(resendCodeState: BaseState<ForgetPasswordModel>()),
-        );
+        emit(state.copyWith(resendCodeState: BaseState<ForgetPasswordModel>()));
     }
   }
 
@@ -63,9 +74,8 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
       ),
     );
 
-    final response = await _forgetPasswordUseCase.callForgetPassword(
-      event.email,
-    );
+    final response =
+    await _forgetPasswordUseCase.callForgetPassword(event.email);
 
     switch (response) {
       case SuccessResponse<ForgetPasswordModel>():
@@ -78,6 +88,7 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
             currentEmail: event.email,
           ),
         );
+
       case ErrorResponse<ForgetPasswordModel>():
         emit(
           state.copyWith(
@@ -96,9 +107,9 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
         verifyResetCodeState: BaseState<VerifyResetCodeModel>(isLoading: true),
       ),
     );
-    final response = await _forgetPasswordUseCase.callVerifyResetCode(
-      event.code,
-    );
+
+    final response =
+    await _forgetPasswordUseCase.callVerifyResetCode(event.code);
 
     switch (response) {
       case SuccessResponse<VerifyResetCodeModel>():
@@ -110,6 +121,7 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
             ),
           ),
         );
+
       case ErrorResponse<VerifyResetCodeModel>():
         emit(
           state.copyWith(
@@ -163,8 +175,7 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
 
   void _toggleConfirmPasswordVisibility() {
     emit(
-      state.copyWith(isConfirmPasswordObscure: !state.isConfirmPasswordObscure),
-    );
+        state.copyWith(isConfirmPasswordObscure: !state.isConfirmPasswordObscure));
   }
 
   void _validateEmail() {
@@ -175,7 +186,6 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
   }
 
   void _validateCode() {
-
     final event = VerifyCodeEvent(
       state.currentEmail ?? '',
       verifyCodeController.text.trim(),
@@ -195,15 +205,17 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
   }
 
   Future<void> _resendCode(ResendCodeEvent event) async {
+
+    verifyCodeController.clear();
+
     emit(
       state.copyWith(
         resendCodeState: BaseState<ForgetPasswordModel>(isLoading: true),
       ),
     );
 
-    final response = await _forgetPasswordUseCase.callForgetPassword(
-      event.email,
-    );
+    final response =
+    await _forgetPasswordUseCase.callForgetPassword(event.email);
 
     switch (response) {
       case SuccessResponse<ForgetPasswordModel>():
@@ -215,6 +227,7 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
             ),
           ),
         );
+
       case ErrorResponse<ForgetPasswordModel>():
         emit(
           state.copyWith(
