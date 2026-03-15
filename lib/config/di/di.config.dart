@@ -42,6 +42,7 @@ import '../../features/auth/login/domain/use_cases/login_use_case.dart' as _i50;
 import '../../features/auth/login/presentation/view_model/bloc/login_view_model.dart'
     as _i947;
 import '../api/dio_module.dart' as _i784;
+import '../api/web_service.dart' as _i787;
 import '../cashe/secure_storage.dart' as _i486;
 import '../cashe/user_session.dart' as _i157;
 import 'app_module.dart' as _i460;
@@ -62,6 +63,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i361.Dio>(() => dioModule.dio);
     gh.singleton<_i157.UserSession>(() => _i157.UserSession());
     gh.lazySingleton<_i251.LoginApiClient>(() => dioModule.loginApiClient);
+    gh.lazySingleton<_i787.WebService>(() => dioModule.webService);
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => appModule.secureStorage);
     gh.lazySingleton<_i558.ApiClient>(() => _i558.ApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i486.SecureStorage>(

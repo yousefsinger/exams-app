@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:exam_app/config/api/web_service.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/values/api_constants.dart';
@@ -11,4 +12,6 @@ abstract class DioModule {
 
   @lazySingleton
   LoginApiClient get loginApiClient => LoginApiClient(dio);
+  @lazySingleton
+  WebService get webService => WebService(dio: dio);
 }
