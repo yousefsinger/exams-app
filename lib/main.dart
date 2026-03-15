@@ -1,6 +1,7 @@
 import 'package:exam_app/config/di/di.dart';
 import 'package:exam_app/core/values/app_routes.dart';
 import 'package:exam_app/core/values/app_theme.dart';
+import 'package:exam_app/features/signup/presentation/pages/sign_up_screen.dart';
 import 'package:exam_app/features/auth/forget_password/presentation/screens/forget_password_screen.dart';
 import 'package:exam_app/features/auth/forget_password/presentation/screens/otp_screen.dart';
 import 'package:exam_app/features/auth/forget_password/presentation/screens/reset_password_screen.dart';
