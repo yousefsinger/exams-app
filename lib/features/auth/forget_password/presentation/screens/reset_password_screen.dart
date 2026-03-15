@@ -91,8 +91,8 @@ class ResetPasswordScreen extends StatelessWidget {
                           );
                         },
                       ),
-
                       errorText: '',
+                      onChanged: (Tab p1) {},
                     ),
 
                     SizedBox(height: 20.h),
@@ -123,8 +123,8 @@ class ResetPasswordScreen extends StatelessWidget {
                           );
                         },
                       ),
-
                       errorText: '',
+                      onChanged: (Tab p1) {},
                     ),
 
                     SizedBox(height: 30.h),

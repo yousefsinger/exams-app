@@ -4,6 +4,7 @@ import 'package:exam_app/core/widgets/custome_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../cubit/signup_cubit.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -51,7 +52,7 @@ class _SignUpFormState extends State<SignUpForm> {
               hint: 'Enter you user name',
               controller: _usernameController,
               errorText: v.usernameError,
-              onChanged: (val) => cubit.onUsernameChanged(val!),
+              onChanged: (val) => cubit.onUsernameChanged('$val'),
             ),
 
             // ── First name & Last name ────────────────────────────────
@@ -93,7 +94,7 @@ class _SignUpFormState extends State<SignUpForm> {
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               errorText: v.emailError,
-              onChanged: (val) => cubit.onEmailChanged(val!),
+              onChanged: (val) => cubit.onEmailChanged('$val'),
             ),
 
             // ── Password & Confirm Password ───────────────────────────
@@ -160,7 +161,7 @@ class _SignUpFormState extends State<SignUpForm> {
               controller: _phoneController,
               keyboardType: TextInputType.phone,
               errorText: v.phoneError,
-                onChanged: (val) => cubit.onPhoneChanged(val!),
+              onChanged: (val) => cubit.onPhoneChanged('$val'),
             ),
 
             // ── Signup Button ────────────────────────────────────────

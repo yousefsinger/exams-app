@@ -47,12 +47,16 @@ import '../cashe/user_session.dart' as _i157;
 import 'app_module.dart' as _i460;
 
 extension GetItInjectableX on _i174.GetIt {
-  // initializes the registration of main-scope dependencies inside of GetIt
+// initializes the registration of main-scope dependencies inside of GetIt
   _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final gh = _i526.GetItHelper(
+      this,
+      environment,
+      environmentFilter,
+    );
     final dioModule = _$DioModule();
     final appModule = _$AppModule();
     gh.singleton<_i361.Dio>(() => dioModule.dio);
@@ -61,39 +65,27 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => appModule.secureStorage);
     gh.lazySingleton<_i558.ApiClient>(() => _i558.ApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i486.SecureStorage>(
-      () => _i486.SecureStorage(storage: gh<_i558.FlutterSecureStorage>()),
-    );
-    gh.factory<_i15.LoginDataSourceContract>(
-      () =>
-          _i466.LoginDataSourceImpl(loginApiClient: gh<_i251.LoginApiClient>()),
-    );
-    gh.factory<_i236.ForgetPasswordRemoteDataSourceContract>(
-      () => _i1058.ForgetPasswordRemoteDatasourceImple(gh<_i558.ApiClient>()),
-    );
-    gh.factory<_i649.ForgetPasswordRepoContract>(
-      () => _i1026.ForgetPasswordRepoImple(
-        gh<_i236.ForgetPasswordRemoteDataSourceContract>(),
-      ),
-    );
-    gh.factory<_i359.LoginRepoContract>(
-      () => _i321.LoginRepoImpl(
-        dataSource: gh<_i15.LoginDataSourceContract>(),
-        secureStorage: gh<_i486.SecureStorage>(),
-        userSession: gh<_i157.UserSession>(),
-      ),
-    );
-    gh.factory<_i913.ForgetPasswordUseCase>(
-      () => _i913.ForgetPasswordUseCase(gh<_i649.ForgetPasswordRepoContract>()),
-    );
+        () => _i486.SecureStorage(storage: gh<_i558.FlutterSecureStorage>()));
+    gh.factory<_i15.LoginDataSourceContract>(() =>
+        _i466.LoginDataSourceImpl(loginApiClient: gh<_i251.LoginApiClient>()));
+    gh.factory<_i236.ForgetPasswordRemoteDataSourceContract>(() =>
+        _i1058.ForgetPasswordRemoteDatasourceImple(gh<_i558.ApiClient>()));
+    gh.factory<_i649.ForgetPasswordRepoContract>(() =>
+        _i1026.ForgetPasswordRepoImple(
+            gh<_i236.ForgetPasswordRemoteDataSourceContract>()));
+    gh.factory<_i359.LoginRepoContract>(() => _i321.LoginRepoImpl(
+          dataSource: gh<_i15.LoginDataSourceContract>(),
+          secureStorage: gh<_i486.SecureStorage>(),
+          userSession: gh<_i157.UserSession>(),
+        ));
+    gh.factory<_i913.ForgetPasswordUseCase>(() =>
+        _i913.ForgetPasswordUseCase(gh<_i649.ForgetPasswordRepoContract>()));
     gh.factory<_i50.LoginUseCase>(
-      () => _i50.LoginUseCase(gh<_i359.LoginRepoContract>()),
-    );
+        () => _i50.LoginUseCase(gh<_i359.LoginRepoContract>()));
     gh.factory<_i776.ForgetPasswordViewModel>(
-      () => _i776.ForgetPasswordViewModel(gh<_i913.ForgetPasswordUseCase>()),
-    );
+        () => _i776.ForgetPasswordViewModel(gh<_i913.ForgetPasswordUseCase>()));
     gh.factory<_i947.LoginViewModel>(
-      () => _i947.LoginViewModel(gh<_i50.LoginUseCase>()),
-    );
+        () => _i947.LoginViewModel(gh<_i50.LoginUseCase>()));
     return this;
   }
 }

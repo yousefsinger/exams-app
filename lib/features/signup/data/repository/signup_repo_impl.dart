@@ -1,4 +1,4 @@
-import 'package:exam_app/config/api/base_states.dart';
+import '../../../../config/api/base_response.dart';
 import '../../domain/entities/signup_entity.dart';
 import '../../domain/repository/signup_repo_contract.dart';
 import '../signup_data_source_contract.dart';

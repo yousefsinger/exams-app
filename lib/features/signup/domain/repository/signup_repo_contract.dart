@@ -1,4 +1,4 @@
-import 'package:exam_app/config/api/base_states.dart';
+import '../../../../config/api/base_response.dart';
 import '../entities/signup_entity.dart';
 
 abstract class SignUpRepoContract {

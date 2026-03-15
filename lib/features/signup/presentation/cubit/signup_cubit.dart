@@ -1,4 +1,4 @@
-import 'package:exam_app/config/api/base_states.dart';
+import 'package:exam_app/config/api/base_response.dart';
 import 'package:exam_app/core/values/validators.dart';
 import 'package:exam_app/features/signup/domain/entities/signup_entity.dart';
 import 'package:exam_app/features/signup/domain/use_cases/signup_use_case.dart';
@@ -144,10 +144,11 @@ class SignUpCubit extends Cubit<SignUpState> {
       ),
     );
 
-    if (result is SuccessBaseResponse) {
+    if (result is SuccessResponse) {
       emit(SignUpSuccess());
-    } else if (result is ErrorBaseResponse) {
-      emit(SignUpError(errorMsg: result.errorMsg ?? 'Something went wrong'));
+    } else if (result is ErrorResponse) {
+      emit(
+          SignUpError(errorMsg: result.errorMessage ?? 'Something went wrong'));
     }
   }
 }

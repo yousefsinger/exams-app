@@ -88,6 +88,7 @@ class LoginScreen extends StatelessWidget {
                           keyboardType: TextInputType.emailAddress,
                           validator: AppValidators.validateEmail,
                           errorText: '',
+                          onChanged: (Tab p1) {},
                         ),
                         SizedBox(height: 16.h),
                         CustomTextField(
@@ -98,6 +99,7 @@ class LoginScreen extends StatelessWidget {
                           isObscureText: true,
                           validator: AppValidators.validatePassword,
                           errorText: '',
+                          onChanged: (Tab p1) {},
                         ),
                         SizedBox(height: 16.h),
                         Row(

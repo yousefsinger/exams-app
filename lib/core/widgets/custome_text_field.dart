@@ -9,7 +9,7 @@ class CustomTextField extends StatelessWidget {
   final bool isObscureText;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
-  Widget? suffixIcon;
+  final Widget? suffixIcon;
 
   const CustomTextField({
     super.key,
@@ -20,8 +20,8 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.controller,
     this.suffixIcon,
-    required this.errorText,
-
+    this.errorText,
+    required void Function(Tab) onChanged,
   });
 
   @override
