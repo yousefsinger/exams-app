@@ -1,4 +1,4 @@
-import '../../../../config/api/base_response.dart';
+import '../../../../../config/api/base_response.dart';
 import '../entities/signup_entity.dart';
 
 abstract class SignUpRepoContract {

@@ -1,11 +1,13 @@
 import 'package:exam_app/config/api/base_response.dart';
 import 'package:exam_app/core/values/validators.dart';
-import 'package:exam_app/features/signup/domain/entities/signup_entity.dart';
-import 'package:exam_app/features/signup/domain/use_cases/signup_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
+
+import '../../domain/entities/signup_entity.dart';
+import '../../domain/use_cases/signup_use_case.dart';
 
 part 'signup_state.dart';
-
+@injectable
 class SignUpCubit extends Cubit<SignUpState> {
   final SignUpUseCase _signUpUseCase;
 

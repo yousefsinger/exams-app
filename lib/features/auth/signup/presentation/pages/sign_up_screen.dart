@@ -1,15 +1,15 @@
 import 'package:exam_app/config/api/web_service.dart';
 import 'package:exam_app/config/di/di.dart';
 import 'package:exam_app/core/values/app_styles.dart';
-import 'package:exam_app/features/signup/data/repository/signup_repo_impl.dart';
-import 'package:exam_app/features/signup/data/signup_data_source_impl.dart';
-import 'package:exam_app/features/signup/domain/use_cases/signup_use_case.dart';
-import 'package:exam_app/features/signup/presentation/widgets/signup_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../data/data_sources/signup_data_source_impl.dart';
+import '../../data/repository/signup_repo_impl.dart';
+import '../../domain/use_cases/signup_use_case.dart';
 import '../cubit/signup_cubit.dart';
+import '../widgets/signup_form.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});

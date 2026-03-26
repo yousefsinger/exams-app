@@ -6,17 +6,17 @@ import 'package:exam_app/features/auth/forget_password/presentation/screens/otp_
 import 'package:exam_app/features/auth/forget_password/presentation/screens/reset_password_screen.dart';
 import 'package:exam_app/features/auth/forget_password/presentation/view_model/bloc/forget_password_view_model.dart';
 import 'package:exam_app/features/auth/login/presentation/view_model/bloc/login_view_model.dart';
-import 'package:exam_app/features/signup/presentation/pages/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'features/auth/login/presentation/screens/login_screen.dart';
-import 'features/signup/presentation/cubit/signup_cubit.dart';
+import 'features/auth/signup/presentation/cubit/signup_cubit.dart';
+import 'features/auth/signup/presentation/pages/sign_up_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  configureDependencies();
+   configureDependencies();
 
   runApp(
     MultiBlocProvider(

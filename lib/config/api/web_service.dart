@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:exam_app/core/values/strings.dart';
-
+import 'package:injectable/injectable.dart';
+@lazySingleton
 class WebService {
   final Dio dio;
 
