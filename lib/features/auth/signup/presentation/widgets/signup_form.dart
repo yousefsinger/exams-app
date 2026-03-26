@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/values/app_routes.dart';
 import '../cubit/signup_cubit.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -188,7 +187,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 CustomTextLink(
                   text: 'Login',
                   onTap: () {
-                     Navigator.pushNamed(context, AppRoutes.login);
+                    // TODO: Navigator.pushNamed(context, AppRoutes.login);
                   },
                 ),
               ],

@@ -75,6 +75,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i361.Dio>(() => dioModule.dio);
     gh.singleton<_i157.UserSession>(() => _i157.UserSession());
     gh.lazySingleton<_i251.LoginApiClient>(() => dioModule.loginApiClient);
+    gh.lazySingleton<_i787.WebService>(() => dioModule.webService);
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => appModule.secureStorage);
     gh.lazySingleton<_i787.WebService>(
         () => _i787.WebService(dio: gh<_i361.Dio>()));
