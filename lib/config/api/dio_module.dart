@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../core/values/api_constants.dart';
 import '../../features/auth/login/api/login_api_client/login_api_client.dart';
+import '../../features/auth/signup/api/signup_api_client/signup_api_client.dart';
 
 @module
 abstract class DioModule {
@@ -12,6 +13,8 @@ abstract class DioModule {
 
   @lazySingleton
   LoginApiClient get loginApiClient => LoginApiClient(dio);
+  //@lazySingleton
+   //WebService get webService => WebService(dio: dio);
   @lazySingleton
-  WebService get webService => WebService(dio: dio);
+  SignupApiClient get signupApiClient => SignupApiClient(dio);
 }
