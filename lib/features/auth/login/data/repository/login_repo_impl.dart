@@ -29,28 +29,31 @@ class LoginRepoImpl implements LoginRepoContract {
 
       if (response.token != null) {
         userSession.token = response.token!;
+
         if (isRememberMe) {
           await secureStorage.saveToken(response.token!);
         }
       }
 
       if (response.user != null) {
-        return SuccessResponse(data: response.user!.toDomain());
+        final userDtoWithToken = UserDto(
+          id: response.user!.id,
+          username: response.user!.username,
+          email: response.user!.email,
+          firstName: response.user!.firstName,
+          lastName: response.user!.lastName,
+          token: response.token,
+        );
+
+        return SuccessResponse(data: userDtoWithToken.toDomain());
       } else {
         return ErrorResponse(
             errorMessage: response.message ?? "something went wrong");
       }
     } on DioException catch (e) {
-      String errorMessage = "An unexpected error occurred. Please try again.";
-
-      if (e.response != null && e.response?.data != null) {
-        errorMessage = e.response?.data['message'] ?? errorMessage;
-      }
-
-      return ErrorResponse(errorMessage: errorMessage);
+      return ErrorResponse(errorMessage: e.response?.data['message'] ?? "Error");
     } catch (e) {
-      return ErrorResponse(
-          errorMessage: "Please check your internet connection.");
+      return ErrorResponse(errorMessage: e.toString());
     }
   }
 }

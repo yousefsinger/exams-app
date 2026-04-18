@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:exam_app/core/values/api_errors_constants.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../config/api/base_response.dart';
@@ -12,12 +13,12 @@ import '../../data/models/reset_password/reset_password_request.dart';
 import '../../data/models/reset_password/reset_password_response.dart';
 import '../../data/models/verify_password/verify_reset_code_request.dart';
 import '../../data/models/verify_password/verify_reset_code_response.dart';
-import '../api_client/api_client.dart';
+import '../api_client/forget_password_api_client.dart';
 
 @Injectable(as: ForgetPasswordRemoteDataSourceContract)
 class ForgetPasswordRemoteDatasourceImple
     implements ForgetPasswordRemoteDataSourceContract {
-  final ApiClient _apiClient;
+  final ForgetPasswordApiClient _apiClient;
 
   ForgetPasswordRemoteDatasourceImple(this._apiClient);
 
@@ -31,7 +32,7 @@ class ForgetPasswordRemoteDatasourceImple
     } on DioException catch (e) {
       return ErrorResponse(errorMessage: ErrorHandler.handleError(e));
     } catch (e) {
-      return ErrorResponse(errorMessage: "Unexpected error occurred");
+      return ErrorResponse(errorMessage: ApiErrorsConstants.unknownError);
     }
   }
 
@@ -44,8 +45,7 @@ class ForgetPasswordRemoteDatasourceImple
 
       return SuccessResponse(data: response);
     } on DioException catch (e) {
-      final errorMessage = ErrorHandler.handleError(e);
-      return ErrorResponse(errorMessage: errorMessage);
+      return ErrorResponse(errorMessage: ErrorHandler.handleError(e));
     } catch (e, stackTrace) {
       log('[StackTrace] $stackTrace');
       return ErrorResponse(errorMessage: 'Unexpected error occurred');
@@ -61,11 +61,10 @@ class ForgetPasswordRemoteDatasourceImple
 
       return SuccessResponse(data: response);
     } on DioException catch (e) {
-      final errorMessage = ErrorHandler.handleError(e);
-      return ErrorResponse(errorMessage: errorMessage);
+      return ErrorResponse(errorMessage: ErrorHandler.handleError(e));
     } catch (e, stackTrace) {
       log('[StackTrace] $stackTrace');
-      return ErrorResponse(errorMessage: 'Unexpected error occurred');
+      return ErrorResponse(errorMessage: ApiErrorsConstants.unknownError);
     }
   }
 }

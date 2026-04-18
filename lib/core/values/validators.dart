@@ -1,4 +1,4 @@
-class AppValidators {
+abstract class AppValidators {
   AppValidators._();
 
   static String? validateEmail(String? value) {

@@ -13,6 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'features/auth/login/presentation/screens/login_screen.dart';
 import 'features/auth/signup/presentation/cubit/signup_cubit.dart';
 import 'features/auth/signup/presentation/pages/sign_up_screen.dart';
+import 'features/home/presentation/screens/home_screen.dart';
+import 'features/home/presentation/view_model/bloc/home_view_model.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +31,9 @@ void main() {
         ),
         BlocProvider(
           create: (_) => getIt<SignUpCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => getIt<HomeViewModel>(),
         ),
       ],
       child: const ExamApp(),
@@ -56,6 +61,7 @@ class ExamApp extends StatelessWidget {
             AppRoutes.forgetPassword: (_) => const ForgetPasswordScreen(),
             AppRoutes.otp: (_) => const OtpScreen(),
             AppRoutes.resetPassword: (_) => const ResetPasswordScreen(),
+            AppRoutes.home: (_) => const HomeScreen(),
           },
           initialRoute: AppRoutes.login,
         );

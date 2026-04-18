@@ -20,26 +20,26 @@ class _SignupApiClient implements SignupApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<Map<String, dynamic>> signup(Map<String, dynamic> body) async {
+  Future<SignupResponseModel> signup(Map<String, dynamic> body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
-    final _options = _setStreamType<Map<String, dynamic>>(
+    final _options = _setStreamType<SignupResponseModel>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
-        _dio.options,
-        'auth/signup',
-        queryParameters: queryParameters,
-        data: _data,
-      )
+            _dio.options,
+            'auth/signup',
+            queryParameters: queryParameters,
+            data: _data,
+          )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late Map<String, dynamic> _value;
+    late SignupResponseModel _value;
     try {
-      _value = _result.data!;
+      _value = SignupResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
@@ -75,4 +75,4 @@ class _SignupApiClient implements SignupApiClient {
   }
 }
 
-
+// dart format on

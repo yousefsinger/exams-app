@@ -1,12 +1,12 @@
 import '../../../../../../config/api/base_states.dart';
-import '../../../domain/models/forget_password_model.dart';
-import '../../../domain/models/reset_password_model.dart';
-import '../../../domain/models/verifiy_reset_code_model.dart';
+import '../../../domain/models/forget_password_entity.dart';
+import '../../../domain/models/reset_password_entity.dart';
+import '../../../domain/models/verifiy_reset_code_entity.dart';
 
 class ForgetPasswordStates {
-  BaseState<ForgetPasswordModel>? forgetPasswordState;
-  BaseState<VerifyResetCodeModel>? verifyResetCodeState;
-  BaseState<ResetPasswordModel>? resetPasswordState;
+  BaseState<ForgetPasswordEntity>? forgetPasswordState;
+  BaseState<VerifiyResetCodeEntity>? verifyResetCodeState;
+  BaseState<ResetPasswordEntity>? resetPasswordState;
 
   final bool isNewPasswordObscure;
   final bool isConfirmPasswordObscure;
@@ -14,7 +14,7 @@ class ForgetPasswordStates {
 
   final String? currentEmail;
 
-  BaseState<ForgetPasswordModel>? resendCodeState;
+  BaseState<ForgetPasswordEntity>? resendCodeState;
 
   ForgetPasswordStates({
     this.forgetPasswordState,
@@ -28,10 +28,10 @@ class ForgetPasswordStates {
   });
 
   ForgetPasswordStates copyWith({
-    BaseState<ForgetPasswordModel>? forgetPasswordState,
-    BaseState<VerifyResetCodeModel>? verifyResetCodeState,
-    BaseState<ResetPasswordModel>? resetPasswordState,
-    BaseState<ForgetPasswordModel>? resendCodeState,
+    BaseState<ForgetPasswordEntity>? forgetPasswordState,
+    BaseState<VerifiyResetCodeEntity>? verifyResetCodeState,
+    BaseState<ResetPasswordEntity>? resetPasswordState,
+    BaseState<ForgetPasswordEntity>? resendCodeState,
     bool? isNewPasswordObscure,
     bool? isConfirmPasswordObscure,
     bool? isButtonEnabled,
