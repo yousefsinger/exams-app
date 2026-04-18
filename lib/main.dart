@@ -6,6 +6,8 @@ import 'package:exam_app/features/auth/forget_password/presentation/screens/otp_
 import 'package:exam_app/features/auth/forget_password/presentation/screens/reset_password_screen.dart';
 import 'package:exam_app/features/auth/forget_password/presentation/view_model/bloc/forget_password_view_model.dart';
 import 'package:exam_app/features/auth/login/presentation/view_model/bloc/login_view_model.dart';
+import 'package:exam_app/features/home/presentation/screens/home_screen.dart';
+import 'package:exam_app/features/home/presentation/view_model/bloc/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,6 +33,9 @@ void main() {
         ),
         BlocProvider(
           create: (_) => getIt<SignUpCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => getIt<HomeViewModel>(),
         ),
       ],
       child: const ExamApp(),
@@ -58,6 +63,7 @@ class ExamApp extends StatelessWidget {
             AppRoutes.forgetPassword: (_) => const ForgetPasswordScreen(),
             AppRoutes.otp: (_) => const OtpScreen(),
             AppRoutes.resetPassword: (_) => const ResetPasswordScreen(),
+            AppRoutes.home: (_) => const HomeScreen(),
             AppRoutes.exams: (context) {
               final args = ModalRoute.of(context)!.settings.arguments
                   as Map<String, dynamic>;

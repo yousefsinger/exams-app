@@ -59,6 +59,19 @@ import '../../features/auth/signup/domain/use_cases/signup_use_case.dart'
     as _i410;
 import '../../features/auth/signup/presentation/cubit/signup_cubit.dart'
     as _i842;
+import '../../features/exams/api/data_sources/exams_data_source_contract.dart'
+    as _i91;
+import '../../features/exams/api/exams_api_client/exams_api_client.dart'
+    as _i598;
+import '../../features/exams/data/data_sources/exams_data_source_impl.dart'
+    as _i225;
+import '../../features/exams/data/repository/exams_repo_impl.dart' as _i47;
+import '../../features/exams/domain/repository/exams_repo_contract.dart'
+    as _i286;
+import '../../features/exams/domain/use_cases/get_exams_by_subject_use_case.dart'
+    as _i952;
+import '../../features/exams/presentation/view_model/bloc/exams_view_model.dart'
+    as _i329;
 import '../../features/home/api/data_sources/home_remote_data_source_impl.dart'
     as _i1033;
 import '../../features/home/api/home_api_client/home_api_client.dart' as _i866;
@@ -101,12 +114,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i866.HomeApiClient>(
         () => _i866.HomeApiClient(gh<_i361.Dio>()));
+    gh.factory<_i598.ExamsApiClient>(
+        () => _i598.ExamsApiClient(gh<_i361.Dio>()));
     gh.factory<_i582.HomeRemoteDatasourceContract>(
         () => _i1033.HomeRemoteDatasourceImpe(gh<_i866.HomeApiClient>()));
     gh.factory<_i968.HomeRepoContract>(
         () => _i1013.HomeRepoImple(gh<_i582.HomeRemoteDatasourceContract>()));
     gh.factory<_i15.LoginDataSourceContract>(() =>
         _i466.LoginDataSourceImpl(loginApiClient: gh<_i251.LoginApiClient>()));
+    gh.factory<_i91.ExamsDataSourceContract>(
+        () => _i225.ExamsDataSourceImpl(gh<_i598.ExamsApiClient>()));
     gh.factory<_i378.SignUpDataSourceContract>(
         () => _i997.SignUpDataSourceImpl(gh<_i877.SignupApiClient>()));
     gh.factory<_i236.ForgetPasswordRemoteDataSourceContract>(() =>
@@ -114,6 +131,8 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i478.ForgetPasswordApiClient>()));
     gh.factory<_i933.HomeUseCase>(
         () => _i933.HomeUseCase(gh<_i968.HomeRepoContract>()));
+    gh.factory<_i286.ExamsRepoContract>(
+        () => _i47.ExamsRepoImpl(gh<_i91.ExamsDataSourceContract>()));
     gh.factory<_i649.ForgetPasswordRepoContract>(() =>
         _i1026.ForgetPasswordRepoImple(
             gh<_i236.ForgetPasswordRemoteDataSourceContract>()));
@@ -121,11 +140,15 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i48.HomeViewModel(gh<_i933.HomeUseCase>()));
     gh.factory<_i106.SignUpRepoContract>(
         () => _i858.SignUpRepoImpl(gh<_i378.SignUpDataSourceContract>()));
+    gh.factory<_i952.GetExamsBySubjectUseCase>(
+        () => _i952.GetExamsBySubjectUseCase(gh<_i286.ExamsRepoContract>()));
     gh.factory<_i359.LoginRepoContract>(() => _i321.LoginRepoImpl(
           dataSource: gh<_i15.LoginDataSourceContract>(),
           secureStorage: gh<_i486.SecureStorage>(),
           userSession: gh<_i157.UserSession>(),
         ));
+    gh.factory<_i329.ExamsViewModel>(
+        () => _i329.ExamsViewModel(gh<_i952.GetExamsBySubjectUseCase>()));
     gh.factory<_i913.ForgetPasswordUseCase>(() =>
         _i913.ForgetPasswordUseCase(gh<_i649.ForgetPasswordRepoContract>()));
     gh.factory<_i22.ResetPasswordUseCase>(() =>

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../domain/model/subject.dart';
 import 'home_screen_item.dart';
 
@@ -18,6 +19,7 @@ class ListViewItems extends StatelessWidget {
           child: HomeScreenItem(
             iconPath: subjects[index].icon,
             name: subjects[index].name,
+            subjectId: subjects[index].id,
           ),
         );
       },

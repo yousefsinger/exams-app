@@ -9,8 +9,5 @@ abstract class ApiConstants {
   static const String resetPassword = "auth/resetPassword";
   static const String subjects = "/subjects";
   static const String subjectById = "/subjects/{id}";
-
-
-
-
+  static const String examsOnSubject = "exams";
 }
