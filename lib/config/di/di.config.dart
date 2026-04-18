@@ -9,11 +9,16 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:ui' as _i264;
+
 import 'package:dio/dio.dart' as _i361;
+import 'package:flutter/material.dart' as _i409;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/auth/forget_password/api/api_client/api_client.dart'
+    as _i558;
 import '../../features/auth/forget_password/api/api_client/forget_password_api_client.dart'
     as _i478;
 import '../../features/auth/forget_password/api/data_sources/forget_password_data_source_impl.dart'
@@ -80,6 +85,27 @@ import '../../features/home/data/data_sources/home_remote_data_source_contract.d
 import '../../features/home/data/repository/home_repo_impl.dart' as _i1013;
 import '../../features/home/domain/repository/home_repo_contract.dart' as _i968;
 import '../../features/home/domain/use_cases/home_use_case.dart' as _i933;
+import '../../features/home/examscreen/data/datasources/exam_remote_datasource.dart'
+    as _i562;
+import '../../features/home/examscreen/data/models/models.dart' as _i272;
+import '../../features/home/examscreen/data/reprosatories/exam_repository_impl.dart'
+    as _i312;
+import '../../features/home/examscreen/domain/entities/exam_questions_entity.dart'
+    as _i866;
+import '../../features/home/examscreen/domain/reprosatories/exam_repository.dart'
+    as _i26;
+import '../../features/home/examscreen/domain/usecase/get_exam_questions.dart'
+    as _i434;
+import '../../features/home/examscreen/presentation/cubit/exam_cubit.dart'
+    as _i357;
+import '../../features/home/examscreen/presentation/widgets/answer_option_widget.dart'
+    as _i614;
+import '../../features/home/examscreen/presentation/widgets/exam_progress_widget.dart'
+    as _i287;
+import '../../features/home/examscreen/presentation/widgets/exam_timer_widget.dart'
+    as _i342;
+import '../../features/home/examscreen/presentation/widgets/time_out_dialog.dart'
+    as _i936;
 import '../../features/home/presentation/view_model/bloc/home_view_model.dart'
     as _i48;
 import '../api/dio_module.dart' as _i784;
@@ -102,14 +128,46 @@ extension GetItInjectableX on _i174.GetIt {
     final dioModule = _$DioModule();
     gh.singleton<_i157.UserSession>(() => _i157.UserSession());
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => appModule.secureStorage);
+    gh.factory<_i614.AnswerOptionWidget>(() => _i614.AnswerOptionWidget(
+          key: gh<_i409.Key>(),
+          option: gh<_i866.AnswerOptionEntity>(),
+          questionType: gh<_i866.QuestionType>(),
+          isSelected: gh<bool>(),
+          onTap: gh<_i264.VoidCallback>(),
+        ));
+    gh.factory<_i312.ExamRepositoryImpl>(
+        () => _i312.ExamRepositoryImpl(gh<_i562.ExamRemoteDataSource>()));
+    gh.factory<_i272.AnswerOptionModel>(() => _i272.AnswerOptionModel(
+          id: gh<String>(),
+          text: gh<String>(),
+        ));
+    gh.factory<_i287.ExamProgressWidget>(() => _i287.ExamProgressWidget(
+          key: gh<_i409.Key>(),
+          currentIndex: gh<int>(),
+          totalQuestions: gh<int>(),
+        ));
+    gh.factory<_i434.GetExamQuestionsUseCase>(
+        () => _i434.GetExamQuestionsUseCase(gh<_i26.ExamRepository>()));
+    gh.factory<_i357.ExamCubit>(
+        () => _i357.ExamCubit(gh<_i434.GetExamQuestionsUseCase>()));
     gh.lazySingleton<_i486.SecureStorage>(
         () => _i486.SecureStorage(storage: gh<_i558.FlutterSecureStorage>()));
+    gh.factory<_i936.TimeOutDialog>(() => _i936.TimeOutDialog(
+          key: gh<_i409.Key>(),
+          onViewScore: gh<_i264.VoidCallback>(),
+        ));
+    gh.factory<_i342.ExamTimerWidget>(() => _i342.ExamTimerWidget(
+          key: gh<_i409.Key>(),
+          remainingSeconds: gh<int>(),
+          totalSeconds: gh<int>(),
+        ));
     gh.lazySingleton<_i361.Dio>(
         () => appModule.provideDio(gh<_i157.UserSession>()));
     gh.lazySingleton<_i251.LoginApiClient>(
         () => dioModule.loginApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i877.SignupApiClient>(
         () => dioModule.signupApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i558.ApiClient>(() => _i558.ApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i478.ForgetPasswordApiClient>(
         () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i866.HomeApiClient>(

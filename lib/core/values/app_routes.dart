@@ -7,4 +7,7 @@ abstract class AppRoutes {
   static const String home ='home_screen';
   static const String exams = 'exams_screen';
   static const String examInstructions = 'exam_instructions_screen';
+  static const String examScore = 'exam_score';
+  static const String examscreen = 'exam_screen';
+
 }

@@ -1,15 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'exam_api_client.dart';
+
 // dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
+
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
-part of 'exam_api_client.dart';
-
-
-@injectable
-
-
 
 class _ExamApiClient implements ExamApiClient {
   _ExamApiClient(this._dio, {this.baseUrl, this.errorLogger});
@@ -22,9 +21,9 @@ class _ExamApiClient implements ExamApiClient {
 
   @override
   Future<ExamQuestionsResponse> getExamQuestions(
-      String examId,
-      String token,
-      ) async {
+    String examId,
+    String token,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'exam': examId};
     final _headers = <String, dynamic>{r'token': token};
@@ -33,11 +32,11 @@ class _ExamApiClient implements ExamApiClient {
     final _options = _setStreamType<ExamQuestionsResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
-        _dio.options,
-        'questions',
-        queryParameters: queryParameters,
-        data: _data,
-      )
+            _dio.options,
+            'questions',
+            queryParameters: queryParameters,
+            data: _data,
+          )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
