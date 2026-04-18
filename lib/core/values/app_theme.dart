@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 import 'app_styles.dart';
 
-class AppTheme {
+abstract class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     primaryColor: AppColors.primaryColor,
     scaffoldBackgroundColor: AppColors.whiteColor,
@@ -51,6 +51,7 @@ class AppTheme {
       elevation: 0,
       titleTextStyle: AppStyles.medium20Black,
       iconTheme: IconThemeData(color: AppColors.blackColor,size: 24),
+      titleSpacing: 0,
 
     )
   );
