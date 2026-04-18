@@ -35,31 +35,54 @@ class ExamArgs {
 // SCREEN
 // ─────────────────────────────────────────────
 
-class ExamScreen extends StatelessWidget {
+class ExamScreen extends StatefulWidget {
   final ExamArgs args;
 
   const ExamScreen({super.key, required this.args});
 
   @override
+  State<ExamScreen> createState() => _ExamScreenState();
+}
+
+class _ExamScreenState extends State<ExamScreen> {
+  late final ExamCubit _cubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _cubit = getIt<ExamCubit>()
+      ..loadExam(
+        examId: widget.args.examId,
+        durationInSeconds: widget.args.durationInSeconds,
+      );
+  }
+
+  @override
+  void dispose() {
+    _cubit.close();
+    super.dispose();
+  }
+
+  void _navigateToScore(ExamFinished state) {
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(
+      context,
+      AppRoutes.examScore,
+      arguments: ExamScoreArgs(
+        questions: state.questions,
+        answers: state.answers,
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<ExamCubit>()
-        ..loadExam(
-          examId: args.examId,
-          durationInSeconds: args.durationInSeconds,
-        ),
+    return BlocProvider.value(
+      value: _cubit,
       child: BlocConsumer<ExamCubit, ExamState>(
         listener: (context, state) {
           if (state is ExamFinished) {
-            // ✅ fixed: navigate to score screen with all data
-            Navigator.pushReplacementNamed(
-              context,
-              AppRoutes.examScore,
-              arguments: ExamScoreArgs(
-                questions: state.questions,
-                answers: state.answers,
-              ),
-            );
+            _navigateToScore(state);
           }
         },
         builder: (context, state) {
@@ -85,7 +108,7 @@ class ExamScreen extends StatelessWidget {
           if (Navigator.canPop(context)) Navigator.pop(context);
         },
       ),
-      title: Text(args.examTitle, style: AppStyles.medium18Black),
+      title: Text(widget.args.examTitle, style: AppStyles.medium18Black),
       actions: [
         if (state is ExamLoaded)
           Padding(
@@ -140,7 +163,6 @@ class ExamScreen extends StatelessWidget {
           ),
           TimeOutDialog(
             onViewScore: () {
-
               context.read<ExamCubit>().submitAfterTimeout();
             },
           ),
