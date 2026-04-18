@@ -1,6 +1,8 @@
+import 'package:exam_app/core/values/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../../core/values/app_colors.dart';
 import '../../../../../core/values/validators.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
@@ -16,9 +18,11 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ForgetPasswordViewModel, ForgetPasswordStates>(
+    final viewModel = context.read<ForgetPasswordViewModel>();
+
+    return BlocListener<ForgetPasswordViewModel, ForgetPasswordStates>(
       listenWhen: (previous, current) =>
-      previous.forgetPasswordState != current.forgetPasswordState,
+          previous.forgetPasswordState != current.forgetPasswordState,
       listener: (context, state) {
         final forgetState = state.forgetPasswordState;
 
@@ -27,7 +31,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (_) => BlocProvider.value(
-                value: context.read<ForgetPasswordViewModel>(),
+                value: viewModel,
                 child: const OtpScreen(),
               ),
             ),
@@ -35,58 +39,64 @@ class ForgetPasswordScreen extends StatelessWidget {
         }
 
         if (forgetState?.errorMessage != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(forgetState!.errorMessage!),
-            ),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(forgetState!.errorMessage!)));
         }
       },
-      builder: (context, state) {
-        final viewModel = context.read<ForgetPasswordViewModel>();
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.whiteColor,
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back_ios_new_outlined),
+          ),
+          title: const Text(AppStrings.forgetPassword),
+        ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+          child: Form(
+            key: viewModel.emailFormKey,
+            child: Column(
+              children: [
+                CustomForgetPasswordTextWidget(
+                  text1: AppStrings.forgetPassword,
+                  text2: AppStrings.enterEmailText,
+                ),
 
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: AppColors.whiteColor,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.arrow_back_ios_new_outlined),
-            ),
-            title: const Text('Forget Password'),
-          ),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-            child: Form(
-              key: viewModel.emailFormKey,
-              child: Column(
-                children: [
-                  CustomForgetPasswordTextWidget(
-                    text1: 'Forget password',
-                    text2: 'Please enter your email associated to\n  your account',
-                  ),
-                  CustomTextField(
-                    controller: viewModel.emailController,
-                    label: 'Email',
-                    hint: 'Enter your email',
-                    validator: AppValidators.validateEmail,
-                    errorText: '',
-                  ),
-                  CustomElevatedButton(
-                    text: 'Continue',
-                    onPressed: () {
-                      viewModel.doIntent(
-                        ValidateEmailEvent(),
-                      );
-                    },
-                  ),
-                ],
-              ),
+                SizedBox(height: 20.h),
+
+                CustomTextField(
+                  controller: viewModel.emailController,
+                  label: AppStrings.email,
+                  hint: AppStrings.enterEmail,
+                  validator: AppValidators.validateEmail,
+                ),
+
+                SizedBox(height: 30.h),
+                BlocBuilder<ForgetPasswordViewModel, ForgetPasswordStates>(
+                  buildWhen: (previous, current) =>
+                      previous.forgetPasswordState !=
+                      current.forgetPasswordState,
+                  builder: (context, state) {
+                    final isLoading =
+                        state.forgetPasswordState?.isLoading == true;
+
+                    return isLoading
+                        ? const CircularProgressIndicator()
+                        : CustomElevatedButton(
+                            text: AppStrings.continueText,
+                            onPressed: () {
+                              viewModel.doIntent(ValidateEmailEvent());
+                            },
+                          );
+                  },
+                ),
+              ],
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

@@ -33,6 +33,7 @@ class ValidateCodeEvent extends ForgetPasswordEvent {}
 
 class ResendCodeEvent extends ForgetPasswordEvent {
   final String email;
+
   ResendCodeEvent(this.email);
 }
 

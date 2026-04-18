@@ -1,4 +1,4 @@
-class ApiErrorsConstants {
+abstract class ApiErrorsConstants {
   // Network Errors
   static const String connectionTimeoutError = 'Connection timeout. Please try again.';
   static const String sendTimeoutError = 'Request timeout. Please try again.';

@@ -38,13 +38,11 @@ class ExamApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
-
           routes: {
             AppRoutes.forgetPassword: (_) => const ForgetPasswordScreen(),
             AppRoutes.otp: (_) => const OtpScreen(),
             AppRoutes.resetPassword: (_) => const ResetPasswordScreen(),
           },
-
           initialRoute: AppRoutes.forgetPassword,
         );
       },

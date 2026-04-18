@@ -3,7 +3,5 @@ class ForgetPasswordRequest {
 
   ForgetPasswordRequest({required this.email});
 
-  Map<String, dynamic> toJson() => {
-    'email': email,
-  };
+  Map<String, dynamic> toJson() => {'email': email};
 }

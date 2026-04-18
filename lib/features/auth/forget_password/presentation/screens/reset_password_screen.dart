@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/values/app_colors.dart';
+import '../../../../../core/values/app_strings.dart';
 import '../../../../../core/values/validators.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../../core/widgets/custome_text_field.dart';
@@ -10,151 +12,153 @@ import '../view_model/bloc/forget_password_states.dart';
 import '../view_model/bloc/forget_password_view_model.dart';
 import '../widgets/custom_forget_password_text_widget.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
+class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
 
   @override
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+}
+
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  bool isNewPasswordObscure = true;
+  bool isConfirmPasswordObscure = true;
+
+  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ForgetPasswordViewModel, ForgetPasswordStates>(
+    final viewModel = context.read<ForgetPasswordViewModel>();
+
+    return BlocListener<ForgetPasswordViewModel, ForgetPasswordStates>(
       listenWhen: (previous, current) =>
-      previous.resetPasswordState != current.resetPasswordState,
+          previous.resetPasswordState != current.resetPasswordState,
 
       listener: (context, state) {
         final resetState = state.resetPasswordState;
-
         if (resetState?.data != null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(resetState!.data!.message),
-              backgroundColor: Colors.green,
+              backgroundColor: AppColors.primaryColor,
             ),
           );
 
-          /// بعد نجاح تغيير الباسورد يرجع لأول شاشة
           Navigator.popUntil(context, (route) => route.isFirst);
         }
-
         if (resetState?.errorMessage != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(resetState!.errorMessage!),
-            ),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(resetState!.errorMessage!)));
         }
       },
 
-      builder: (context, state) {
-        final viewModel = context.read<ForgetPasswordViewModel>();
-
-        return Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              onPressed: () {
-                /// الرجوع لـ OTP مع إرسال نتيجة
-                Navigator.pop(context, true);
-              },
-              icon: const Icon(Icons.arrow_back_ios_new_outlined),
-            ),
-            title: const Text('Password'),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.whiteColor,
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context, true),
+            icon: const Icon(Icons.arrow_back_ios_new_outlined),
           ),
+          title: const Text(AppStrings.password),
+        ),
 
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.w,
-                vertical: 20.h,
-              ),
+        body: BlocBuilder<ForgetPasswordViewModel, ForgetPasswordStates>(
+          buildWhen: (prev, curr) =>
+              prev.resetPasswordState != curr.resetPasswordState,
 
-              child: Form(
-                key: viewModel.resetPasswordFormKey,
+          builder: (context, state) {
+            final isLoading = state.resetPasswordState?.isLoading == true;
 
-                child: Column(
-                  children: [
-                    CustomForgetPasswordTextWidget(
-                      text1: 'Reset password',
-                      text2:
-                      'Password must not be empty and must contain\n'
-                          '6 characters with upper case letter and one\n'
-                          'number at least',
+            return Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.w,
+                      vertical: 20.h,
                     ),
 
-                    SizedBox(height: 24.h),
+                    child: Form(
+                      key: viewModel.resetPasswordFormKey,
 
-                    /// New Password
-                    CustomTextField(
-                      controller: viewModel.passwordController,
-                      label: 'New password',
-                      hint: 'Enter your password',
-                      validator: AppValidators.validatePassword,
-                      isObscureText: state.isNewPasswordObscure,
+                      child: Column(
+                        children: [
+                          CustomForgetPasswordTextWidget(
+                            text1: AppStrings.resetPassword,
+                            text2: AppStrings.passwordValidationText,
+                          ),
 
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          state.isNewPasswordObscure
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                        ),
-                        onPressed: () {
-                          viewModel.doIntent(
-                            ToggleNewPasswordVisibilityEvent(),
-                          );
-                        },
+                          SizedBox(height: 24.h),
+                          CustomTextField(
+                            controller: viewModel.passwordController,
+                            label: AppStrings.newPassword,
+                            hint: AppStrings.enterYourPassword,
+                            validator: AppValidators.validatePassword,
+                            isObscureText: isNewPasswordObscure,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                isNewPasswordObscure
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  isNewPasswordObscure = !isNewPasswordObscure;
+                                });
+                              },
+                            ),
+                          ),
+
+                          SizedBox(height: 20.h),
+                          CustomTextField(
+                            controller: viewModel.confirmPasswordController,
+                            label: AppStrings.confirmPassword,
+                            hint: AppStrings.confirmPassword,
+                            validator: (value) {
+                              return AppValidators.validateConfirmPassword(
+                                value,
+                                viewModel.passwordController.text,
+                              );
+                            },
+                            isObscureText: isConfirmPasswordObscure,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                isConfirmPasswordObscure
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  isConfirmPasswordObscure =
+                                      !isConfirmPasswordObscure;
+                                });
+                              },
+                            ),
+                          ),
+
+                          SizedBox(height: 30.h),
+                          SizedBox(
+                            width: double.infinity,
+                            child: CustomElevatedButton(
+                              text: AppStrings.continueText,
+                              onPressed: () {
+                                viewModel.doIntent(ValidateNewPasswordEvent());
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-
-                      errorText: '',
                     ),
-
-                    SizedBox(height: 20.h),
-
-                    /// Confirm Password
-                    CustomTextField(
-                      controller: viewModel.confirmPasswordController,
-                      label: 'Confirm password',
-                      hint: 'Confirm password',
-
-                      validator: (value) {
-                        return AppValidators.validateConfirmPassword(
-                          value,
-                          viewModel.passwordController.text,
-                        );
-                      },
-
-                      isObscureText: state.isConfirmPasswordObscure,
-
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          state.isConfirmPasswordObscure
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                        ),
-                        onPressed: () {
-                          viewModel.doIntent(
-                            ToggleConfirmPasswordVisibilityEvent(),
-                          );
-                        },
-                      ),
-
-                      errorText: '',
-                    ),
-
-                    SizedBox(height: 30.h),
-
-                    CustomElevatedButton(
-                      text: 'Continue',
-
-                      onPressed: () {
-                        viewModel.doIntent(
-                          ValidateNewPasswordEvent(),
-                        );
-                      },
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          ),
-        );
-      },
+                if (isLoading)
+                  Container(
+                    color: Colors.black.withOpacity(0.3),
+                    child: const Center(child: CircularProgressIndicator()),
+                  ),
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 }
