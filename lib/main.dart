@@ -13,6 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'features/auth/login/presentation/screens/login_screen.dart';
 import 'features/auth/signup/presentation/cubit/signup_cubit.dart';
 import 'features/auth/signup/presentation/pages/sign_up_screen.dart';
+import 'features/exams/presentation/screens/exam_instructions_screen.dart';
+import 'features/exams/presentation/screens/exams_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +58,22 @@ class ExamApp extends StatelessWidget {
             AppRoutes.forgetPassword: (_) => const ForgetPasswordScreen(),
             AppRoutes.otp: (_) => const OtpScreen(),
             AppRoutes.resetPassword: (_) => const ResetPasswordScreen(),
+            AppRoutes.exams: (context) {
+              final args = ModalRoute.of(context)!.settings.arguments
+                  as Map<String, dynamic>;
+              return ExamsScreen(
+                subjectId: args['subjectId'],
+                subjectName: args['subjectName'],
+              );
+            },
+            AppRoutes.examInstructions: (context) {
+              final args = ModalRoute.of(context)!.settings.arguments
+                  as Map<String, dynamic>;
+              return ExamInstructionsScreen(
+                exam: args['exam'],
+                subjectName: args['subjectName'],
+              );
+            },
           },
           initialRoute: AppRoutes.login,
         );

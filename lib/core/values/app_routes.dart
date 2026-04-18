@@ -4,4 +4,6 @@ class AppRoutes {
   static const String forgetPassword ='forget_password_screen';
   static const String otp ='otp_screen';
   static const String resetPassword ='reset_password_screen';
+  static const String exams = 'exams_screen';
+  static const String examInstructions = 'exam_instructions_screen';
 }
