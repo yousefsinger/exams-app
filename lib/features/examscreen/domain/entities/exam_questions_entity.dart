@@ -1,7 +1,5 @@
 // lib/features/home/examscreen/domain/entities/exam_question_entity.dart
-import 'package:injectable/injectable.dart';
 
-@injectable
 
 enum QuestionType { singleChoice, multipleChoice }
 

@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+
 import '../entities/exam_questions_entity.dart';
 import '../failure/failures.dart';
 import '../reprosatories/exam_repository.dart';
-@injectable
 
 @lazySingleton
 class GetExamQuestionsUseCase {

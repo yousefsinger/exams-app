@@ -3,14 +3,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../../../core/handle_error/handle_error.dart';
 import '../../domain/entities/exam_questions_entity.dart';
 import '../../domain/failure/failures.dart';
 import '../../domain/reprosatories/exam_repository.dart';
-import '../datasources/exam_remote_datasource.dart';
-@injectable
+import '../datasources/exam_datasource.dart';
 
-@LazySingleton(as: ExamRepository)
+@Injectable(as: ExamRepository)
 class ExamRepositoryImpl implements ExamRepository {
   final ExamRemoteDataSource _remoteDataSource;
 

@@ -77,6 +77,29 @@ import '../../features/exams/domain/use_cases/get_exams_by_subject_use_case.dart
     as _i952;
 import '../../features/exams/presentation/view_model/bloc/exams_view_model.dart'
     as _i329;
+import '../../features/examscreen/api/exam_api_client.dart' as _i315;
+import '../../features/examscreen/data/datasources/exam_datasource.dart'
+    as _i716;
+import '../../features/examscreen/data/datasources/exam_remote_datasource.dart'
+    as _i864;
+import '../../features/examscreen/data/models/models.dart' as _i616;
+import '../../features/examscreen/data/reprosatories/exam_repository_impl.dart'
+    as _i512;
+import '../../features/examscreen/domain/entities/exam_questions_entity.dart'
+    as _i857;
+import '../../features/examscreen/domain/reprosatories/exam_repository.dart'
+    as _i117;
+import '../../features/examscreen/domain/usecase/get_exam_questions.dart'
+    as _i477;
+import '../../features/examscreen/presentation/cubit/exam_cubit.dart' as _i538;
+import '../../features/examscreen/presentation/widgets/answer_option_widget.dart'
+    as _i962;
+import '../../features/examscreen/presentation/widgets/exam_progress_widget.dart'
+    as _i925;
+import '../../features/examscreen/presentation/widgets/exam_timer_widget.dart'
+    as _i914;
+import '../../features/examscreen/presentation/widgets/time_out_dialog.dart'
+    as _i173;
 import '../../features/home/api/data_sources/home_remote_data_source_impl.dart'
     as _i1033;
 import '../../features/home/api/home_api_client/home_api_client.dart' as _i866;
@@ -85,27 +108,6 @@ import '../../features/home/data/data_sources/home_remote_data_source_contract.d
 import '../../features/home/data/repository/home_repo_impl.dart' as _i1013;
 import '../../features/home/domain/repository/home_repo_contract.dart' as _i968;
 import '../../features/home/domain/use_cases/home_use_case.dart' as _i933;
-import '../../features/home/examscreen/data/datasources/exam_remote_datasource.dart'
-    as _i562;
-import '../../features/home/examscreen/data/models/models.dart' as _i272;
-import '../../features/home/examscreen/data/reprosatories/exam_repository_impl.dart'
-    as _i312;
-import '../../features/home/examscreen/domain/entities/exam_questions_entity.dart'
-    as _i866;
-import '../../features/home/examscreen/domain/reprosatories/exam_repository.dart'
-    as _i26;
-import '../../features/home/examscreen/domain/usecase/get_exam_questions.dart'
-    as _i434;
-import '../../features/home/examscreen/presentation/cubit/exam_cubit.dart'
-    as _i357;
-import '../../features/home/examscreen/presentation/widgets/answer_option_widget.dart'
-    as _i614;
-import '../../features/home/examscreen/presentation/widgets/exam_progress_widget.dart'
-    as _i287;
-import '../../features/home/examscreen/presentation/widgets/exam_timer_widget.dart'
-    as _i342;
-import '../../features/home/examscreen/presentation/widgets/time_out_dialog.dart'
-    as _i936;
 import '../../features/home/presentation/view_model/bloc/home_view_model.dart'
     as _i48;
 import '../api/dio_module.dart' as _i784;
@@ -128,35 +130,29 @@ extension GetItInjectableX on _i174.GetIt {
     final dioModule = _$DioModule();
     gh.singleton<_i157.UserSession>(() => _i157.UserSession());
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => appModule.secureStorage);
-    gh.factory<_i614.AnswerOptionWidget>(() => _i614.AnswerOptionWidget(
-          key: gh<_i409.Key>(),
-          option: gh<_i866.AnswerOptionEntity>(),
-          questionType: gh<_i866.QuestionType>(),
-          isSelected: gh<bool>(),
-          onTap: gh<_i264.VoidCallback>(),
-        ));
-    gh.factory<_i312.ExamRepositoryImpl>(
-        () => _i312.ExamRepositoryImpl(gh<_i562.ExamRemoteDataSource>()));
-    gh.factory<_i272.AnswerOptionModel>(() => _i272.AnswerOptionModel(
+    gh.factory<_i616.AnswerOptionModel>(() => _i616.AnswerOptionModel(
           id: gh<String>(),
           text: gh<String>(),
         ));
-    gh.factory<_i287.ExamProgressWidget>(() => _i287.ExamProgressWidget(
+    gh.factory<_i925.ExamProgressWidget>(() => _i925.ExamProgressWidget(
           key: gh<_i409.Key>(),
           currentIndex: gh<int>(),
           totalQuestions: gh<int>(),
         ));
-    gh.factory<_i434.GetExamQuestionsUseCase>(
-        () => _i434.GetExamQuestionsUseCase(gh<_i26.ExamRepository>()));
-    gh.factory<_i357.ExamCubit>(
-        () => _i357.ExamCubit(gh<_i434.GetExamQuestionsUseCase>()));
     gh.lazySingleton<_i486.SecureStorage>(
         () => _i486.SecureStorage(storage: gh<_i558.FlutterSecureStorage>()));
-    gh.factory<_i936.TimeOutDialog>(() => _i936.TimeOutDialog(
+    gh.factory<_i173.TimeOutDialog>(() => _i173.TimeOutDialog(
           key: gh<_i409.Key>(),
           onViewScore: gh<_i264.VoidCallback>(),
         ));
-    gh.factory<_i342.ExamTimerWidget>(() => _i342.ExamTimerWidget(
+    gh.factory<_i962.AnswerOptionWidget>(() => _i962.AnswerOptionWidget(
+          key: gh<_i409.Key>(),
+          option: gh<_i857.AnswerOptionEntity>(),
+          questionType: gh<_i857.QuestionType>(),
+          isSelected: gh<bool>(),
+          onTap: gh<_i264.VoidCallback>(),
+        ));
+    gh.factory<_i914.ExamTimerWidget>(() => _i914.ExamTimerWidget(
           key: gh<_i409.Key>(),
           remainingSeconds: gh<int>(),
           totalSeconds: gh<int>(),
@@ -167,6 +163,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => dioModule.loginApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i877.SignupApiClient>(
         () => dioModule.signupApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i315.ExamApiClient>(
+        () => dioModule.provideExamApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i558.ApiClient>(() => _i558.ApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i478.ForgetPasswordApiClient>(
         () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()));
@@ -184,6 +182,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i225.ExamsDataSourceImpl(gh<_i598.ExamsApiClient>()));
     gh.factory<_i378.SignUpDataSourceContract>(
         () => _i997.SignUpDataSourceImpl(gh<_i877.SignupApiClient>()));
+    gh.lazySingleton<_i716.ExamRemoteDataSource>(
+        () => _i864.ExamRemoteDataSourceImpl(
+              gh<_i315.ExamApiClient>(),
+              gh<_i486.SecureStorage>(),
+            ));
     gh.factory<_i236.ForgetPasswordRemoteDataSourceContract>(() =>
         _i1058.ForgetPasswordRemoteDatasourceImple(
             gh<_i478.ForgetPasswordApiClient>()));
@@ -207,6 +210,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i329.ExamsViewModel>(
         () => _i329.ExamsViewModel(gh<_i952.GetExamsBySubjectUseCase>()));
+    gh.factory<_i117.ExamRepository>(
+        () => _i512.ExamRepositoryImpl(gh<_i716.ExamRemoteDataSource>()));
     gh.factory<_i913.ForgetPasswordUseCase>(() =>
         _i913.ForgetPasswordUseCase(gh<_i649.ForgetPasswordRepoContract>()));
     gh.factory<_i22.ResetPasswordUseCase>(() =>
@@ -222,6 +227,8 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.factory<_i50.LoginUseCase>(
         () => _i50.LoginUseCase(gh<_i359.LoginRepoContract>()));
+    gh.lazySingleton<_i477.GetExamQuestionsUseCase>(
+        () => _i477.GetExamQuestionsUseCase(gh<_i117.ExamRepository>()));
     gh.factory<_i410.SignUpUseCase>(
         () => _i410.SignUpUseCase(gh<_i106.SignUpRepoContract>()));
     gh.factory<_i842.SignUpCubit>(
@@ -230,6 +237,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i50.LoginUseCase>(),
           gh<_i157.UserSession>(),
         ));
+    gh.factory<_i538.ExamCubit>(
+        () => _i538.ExamCubit(gh<_i477.GetExamQuestionsUseCase>()));
     return this;
   }
 }

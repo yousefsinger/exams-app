@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/values/app_colors.dart';
+import '../../../../core/values/app_routes.dart';
 import '../../../../core/widgets/custom_elevated_button.dart';
+import '../../../examscreen/presentation/screen/exam_screen.dart';
 import '../../domain/model/exam.dart';
 
 class ExamInstructionsScreen extends StatelessWidget {
@@ -158,7 +160,17 @@ class ExamInstructionsScreen extends StatelessWidget {
                 SizedBox(height: 48.h),
                 CustomElevatedButton(
                   text: 'Start',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.examScreen,
+                      arguments: ExamArgs(
+                        examId: exam.id,
+                        examTitle: exam.title,
+                        durationInSeconds: exam.duration * 60,
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(height: 16.h),
               ],

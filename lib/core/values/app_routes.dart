@@ -8,6 +8,5 @@ abstract class AppRoutes {
   static const String exams = 'exams_screen';
   static const String examInstructions = 'exam_instructions_screen';
   static const String examScore = 'exam_score';
-  static const String examscreen = 'exam_screen';
-
+  static const String examScreen = 'exam_screen';
 }

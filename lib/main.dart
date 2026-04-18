@@ -18,7 +18,8 @@ import 'features/auth/signup/presentation/cubit/signup_cubit.dart';
 import 'features/auth/signup/presentation/pages/sign_up_screen.dart';
 import 'features/exams/presentation/screens/exam_instructions_screen.dart';
 import 'features/exams/presentation/screens/exams_screen.dart';
-import 'features/home/examscreen/presentation/screen/exam_screen.dart';
+import 'features/examscreen/presentation/cubit/exam_cubit.dart';
+import 'features/examscreen/presentation/screen/exam_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,9 @@ void main() {
         BlocProvider(
           create: (_) => getIt<HomeViewModel>(),
         ),
+        BlocProvider(
+          create: (_) => getIt<ExamCubit>(),
+        )
       ],
       child: const ExamApp(),
     ),
@@ -66,12 +70,22 @@ class ExamApp extends StatelessWidget {
             AppRoutes.otp: (_) => const OtpScreen(),
             AppRoutes.resetPassword: (_) => const ResetPasswordScreen(),
             AppRoutes.home: (_) => const HomeScreen(),
-            AppRoutes.examscreen: (ctx) {
+            AppRoutes.examScreen: (ctx) {
               final args =
               ModalRoute.of(ctx)!.settings.arguments as ExamArgs;
               return ExamScreen(args: args);
             },
-
+            AppRoutes.examScore: (ctx) {
+              final raw = ModalRoute.of(ctx)!.settings.arguments
+                  as Map<String, dynamic>;
+              return ExamScoreScreen(
+                args: ExamScoreArgs(
+                  questions: raw['questions'],
+                  answers: raw['answers'],
+                  examArgs: raw['examArgs'] as ExamArgs,
+                ),
+              );
+            },
             AppRoutes.exams: (context) {
               final args = ModalRoute.of(context)!.settings.arguments
                   as Map<String, dynamic>;

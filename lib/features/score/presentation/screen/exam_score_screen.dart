@@ -1,12 +1,14 @@
 // lib/features/score/presentation/screen/exam_score_screen.dart
 
 import 'dart:math';
-import 'package:flutter/material.dart';
+
 import 'package:exam_app/core/values/app_colors.dart';
 import 'package:exam_app/core/values/app_routes.dart';
 import 'package:exam_app/core/values/app_styles.dart';
-import 'package:exam_app/features/home/examscreen/domain/entities/exam_questions_entity.dart';
-import 'package:exam_app/features/home/examscreen/presentation/screen/exam_screen.dart';
+import 'package:flutter/material.dart';
+
+import '../../../examscreen/domain/entities/exam_questions_entity.dart';
+import '../../../examscreen/presentation/screen/exam_screen.dart';
 
 // ─────────────────────────────────────────────
 // ARGS

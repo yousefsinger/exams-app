@@ -2,16 +2,11 @@
 
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../../../config/cashe/secure_storage.dart';
 import '../../api/exam_api_client.dart';
 import '../models/models.dart';
-@injectable
-
-// ── Contract ──────────────────────────────────────────────────────────────
-
-abstract class ExamRemoteDataSource {
-  Future<List<ExamQuestionModel>> getExamQuestions(String examId);
-}
+import 'exam_datasource.dart';
 
 // ── Implementation ────────────────────────────────────────────────────────
 
