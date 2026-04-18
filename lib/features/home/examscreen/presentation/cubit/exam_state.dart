@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import '../../domain/entities/exam_questions_entity.dart';
+@injectable
 
 abstract class ExamState extends Equatable {
   const ExamState();

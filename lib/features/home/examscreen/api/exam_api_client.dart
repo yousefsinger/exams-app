@@ -7,7 +7,7 @@ import 'package:retrofit/retrofit.dart';
 import '../data/models/models.dart';
 
 part 'exam_api_client.g.dart';
-
+@injectable
 @RestApi()
 abstract class ExamApiClient {
   factory ExamApiClient(Dio dio, {String? baseUrl}) = _ExamApiClient;

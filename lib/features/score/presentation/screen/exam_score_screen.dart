@@ -7,9 +7,11 @@ import 'package:exam_app/core/values/app_colors.dart';
 import 'package:exam_app/core/values/app_styles.dart';
 import 'package:exam_app/core/values/app_routes.dart';
 import 'package:exam_app/features/home/examscreen/domain/entities/exam_questions_entity.dart';
+import 'package:injectable/injectable.dart';
 
 // ─────────────────────────────────────────────
 // ARGS
+@injectable
 // ─────────────────────────────────────────────
 
 class ExamScoreArgs {
