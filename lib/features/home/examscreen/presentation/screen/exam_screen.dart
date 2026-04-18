@@ -1,7 +1,8 @@
+// lib/features/home/examscreen/presentation/screen/exam_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:injectable/injectable.dart';
 import '../../../../../config/di/di.dart';
 import '../../../../../core/values/app_colors.dart';
 import '../../../../../core/values/app_routes.dart';
@@ -14,12 +15,10 @@ import '../widgets/exam_bottom_buttons.dart';
 import '../widgets/exam_progress_widget.dart';
 import '../widgets/exam_timer_widget.dart';
 import '../widgets/time_out_dialog.dart';
-import 'package:exam_app/features/score/presentation/screen/exam_score_screen.dart';
 
 // ─────────────────────────────────────────────
 // ARGS
 // ─────────────────────────────────────────────
-@injectable
 
 class ExamArgs {
   final String examId;
@@ -37,54 +36,43 @@ class ExamArgs {
 // SCREEN
 // ─────────────────────────────────────────────
 
-class ExamScreen extends StatefulWidget {
+class ExamScreen extends StatelessWidget {
   final ExamArgs args;
 
   const ExamScreen({super.key, required this.args});
 
-  @override
-  State<ExamScreen> createState() => _ExamScreenState();
-}
-
-class _ExamScreenState extends State<ExamScreen> {
-  late final ExamCubit _cubit;
-
-  @override
-  void initState() {
-    super.initState();
-    _cubit = getIt<ExamCubit>()
-      ..loadExam(
-        examId: widget.args.examId,
-        durationInSeconds: widget.args.durationInSeconds,
-      );
-  }
-
-  @override
-  void dispose() {
-    _cubit.close();
-    super.dispose();
-  }
-
-  void _navigateToScore(ExamFinished state) {
-    if (!mounted) return;
+  void _goToScore(BuildContext context, ExamFinished state) {
     Navigator.pushReplacementNamed(
       context,
       AppRoutes.examScore,
-      arguments: ExamScoreArgs(
-        questions: state.questions,
-        answers: state.answers,
-      ),
+      arguments: {
+        'questions': state.questions,
+        'answers': state.answers,
+        'examArgs': args, // ✅ pass original args so score screen can restart
+      },
     );
+  }
+
+  void _goBack(BuildContext context) {
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    } else {
+      Navigator.pushReplacementNamed(context, AppRoutes.login);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: _cubit,
+    return BlocProvider(
+      create: (_) => getIt<ExamCubit>()
+        ..loadExam(
+          examId: args.examId,
+          durationInSeconds: args.durationInSeconds,
+        ),
       child: BlocConsumer<ExamCubit, ExamState>(
         listener: (context, state) {
           if (state is ExamFinished) {
-            _navigateToScore(state);
+            _goToScore(context, state);
           }
         },
         builder: (context, state) {
@@ -98,19 +86,15 @@ class _ExamScreenState extends State<ExamScreen> {
     );
   }
 
-  // ── AppBar ──────────────────────────────────
-
   PreferredSizeWidget _buildAppBar(BuildContext context, ExamState state) {
     return AppBar(
       backgroundColor: AppColors.whiteColor,
       elevation: 0,
       leading: IconButton(
         icon: Icon(Icons.arrow_back, color: AppColors.blackColor),
-        onPressed: () {
-          if (Navigator.canPop(context)) Navigator.pop(context);
-        },
+        onPressed: () => _goBack(context),
       ),
-      title: Text(widget.args.examTitle, style: AppStyles.medium18Black),
+      title: Text(args.examTitle, style: AppStyles.medium18Black),
       actions: [
         if (state is ExamLoaded)
           Padding(
@@ -132,25 +116,18 @@ class _ExamScreenState extends State<ExamScreen> {
     );
   }
 
-  // ── Body ────────────────────────────────────
-
   Widget _buildBody(BuildContext context, ExamState state) {
     if (state is ExamLoading) {
       return Center(
         child: CircularProgressIndicator(color: AppColors.primaryColor),
       );
     }
-
     if (state is ExamError) {
-      return Center(
-        child: Text(state.message, style: AppStyles.errorText),
-      );
+      return Center(child: Text(state.message, style: AppStyles.errorText));
     }
-
     if (state is ExamLoaded) {
       return _ActiveExamBody(state: state);
     }
-
     if (state is ExamTimeOut) {
       return Stack(
         children: [
@@ -164,14 +141,12 @@ class _ExamScreenState extends State<ExamScreen> {
             ),
           ),
           TimeOutDialog(
-            onViewScore: () {
-              context.read<ExamCubit>().submitAfterTimeout();
-            },
+            onViewScore: () =>
+                context.read<ExamCubit>().submitAfterTimeout(),
           ),
         ],
       );
     }
-
     return const SizedBox.shrink();
   }
 }
@@ -193,13 +168,12 @@ class _ActiveExamBody extends StatelessWidget {
           currentIndex: state.currentIndex,
           totalQuestions: state.questions.length,
         ),
-        Expanded(
-          child: _QuestionSection(state: state),
-        ),
+        Expanded(child: _QuestionSection(state: state)),
         ExamBottomButtons(
           isLastQuestion: state.isLastQuestion,
           onBack: () => context.read<ExamCubit>().previousQuestion(),
           onNext: () => context.read<ExamCubit>().nextQuestion(),
+          onFinish: () => context.read<ExamCubit>().submitExam(),
         ),
       ],
     );

@@ -1,19 +1,21 @@
+// lib/features/home/examscreen/presentation/widgets/exam_bottom_buttons.dart
+
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
 import '../../../../../core/values/app_colors.dart';
 import '../../../../../core/values/app_styles.dart';
-@injectable
 
 class ExamBottomButtons extends StatelessWidget {
   final bool isLastQuestion;
   final VoidCallback onBack;
   final VoidCallback onNext;
+  final VoidCallback onFinish;
 
   const ExamBottomButtons({
     super.key,
     required this.isLastQuestion,
     required this.onBack,
     required this.onNext,
+    required this.onFinish,
   });
 
   @override
@@ -38,7 +40,8 @@ class ExamBottomButtons extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: ElevatedButton(
-              onPressed: onNext,
+
+              onPressed: isLastQuestion ? onFinish : onNext,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryColor,
                 padding: const EdgeInsets.symmetric(vertical: 14),
@@ -57,4 +60,3 @@ class ExamBottomButtons extends StatelessWidget {
     );
   }
 }
-

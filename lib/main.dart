@@ -30,13 +30,15 @@ class ExamApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
 
-          home: ExamScreen(
+          // TODO: change to LoginScreen() when done testing
+          home: const ExamScreen(
             args: ExamArgs(
-              examId: 'YOUR_EXAM_ID',
-              examTitle: 'Test Exam',
+              examId: 'MOCK',
+              examTitle: 'Data Structures Quiz',
               durationInSeconds: 600,
             ),
           ),
+
           routes: {
             AppRoutes.login: (_) => const LoginScreen(),
             AppRoutes.signUp: (_) => const SignUpScreen(),
@@ -48,9 +50,15 @@ class ExamApp extends StatelessWidget {
               return ExamScreen(args: args);
             },
             AppRoutes.examScore: (ctx) {
-              final args =
-              ModalRoute.of(ctx)!.settings.arguments as ExamScoreArgs;
-              return ExamScoreScreen(args: args);
+              final raw = ModalRoute.of(ctx)!.settings.arguments
+              as Map<String, dynamic>;
+              return ExamScoreScreen(
+                args: ExamScoreArgs(
+                  questions: raw['questions'],
+                  answers: raw['answers'],
+                  examArgs: raw['examArgs'] as ExamArgs,
+                ),
+              );
             },
           },
         );
