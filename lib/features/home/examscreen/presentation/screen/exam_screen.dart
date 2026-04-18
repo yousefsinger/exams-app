@@ -1,9 +1,6 @@
-// lib/features/home/examscreen/presentation/screen/exam_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:injectable/injectable.dart';
 import '../../../../../config/di/di.dart';
 import '../../../../../core/values/app_colors.dart';
 import '../../../../../core/values/app_routes.dart';
@@ -16,11 +13,11 @@ import '../widgets/exam_bottom_buttons.dart';
 import '../widgets/exam_progress_widget.dart';
 import '../widgets/exam_timer_widget.dart';
 import '../widgets/time_out_dialog.dart';
+import 'package:exam_app/features/score/presentation/screen/exam_score_screen.dart';
 
 // ─────────────────────────────────────────────
 // ARGS
 // ─────────────────────────────────────────────
-@injectable
 
 class ExamArgs {
   final String examId;
@@ -35,25 +32,13 @@ class ExamArgs {
 }
 
 // ─────────────────────────────────────────────
-// SCREEN  (self-provides its own BlocProvider)
+// SCREEN
 // ─────────────────────────────────────────────
 
 class ExamScreen extends StatelessWidget {
   final ExamArgs args;
 
   const ExamScreen({super.key, required this.args});
-
-  // ── Helper: navigate to score screen ────────
-  void _goToScore(BuildContext context, ExamFinished state) {
-    Navigator.pushReplacementNamed(
-      context,
-      AppRoutes.examScore,
-      arguments: {
-        'questions': state.questions,
-        'answers': state.answers,
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +51,15 @@ class ExamScreen extends StatelessWidget {
       child: BlocConsumer<ExamCubit, ExamState>(
         listener: (context, state) {
           if (state is ExamFinished) {
-            _goToScore(context, state);
+            // ✅ fixed: navigate to score screen with all data
+            Navigator.pushReplacementNamed(
+              context,
+              AppRoutes.examScore,
+              arguments: ExamScoreArgs(
+                questions: state.questions,
+                answers: state.answers,
+              ),
+            );
           }
         },
         builder: (context, state) {

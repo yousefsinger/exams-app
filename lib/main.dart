@@ -6,6 +6,7 @@ import 'package:exam_app/features/auth/login/presentation/screens/login_screen.d
 import 'package:exam_app/features/auth/signup/presentation/pages/sign_up_screen.dart';
 import 'package:exam_app/features/home/examscreen/presentation/screen/exam_screen.dart';
 import 'package:exam_app/features/home/screens/home_screen.dart';
+import 'package:exam_app/features/score/presentation/screen/exam_score_screen.dart'; // ✅ added
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -29,28 +30,23 @@ class ExamApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           routes: {
-            AppRoutes.login: (_) => const LoginScreen(),
-            AppRoutes.signUp: (_) => const SignUpScreen(),
-            AppRoutes.forgetPassword: (_) => const ForgetPasswordScreen(),
-            AppRoutes.home: (_) => const HomeScreen(),
+            //AppRoutes.login: (_) => const LoginScreen(),
+            //AppRoutes.signUp: (_) => const SignUpScreen(),
+            //AppRoutes.forgetPassword: (_) => const ForgetPasswordScreen(),
+            //AppRoutes.home: (_) => const HomeScreen(),
             AppRoutes.examscreen: (ctx) {
-              final args = ModalRoute.of(ctx)!.settings.arguments;
-              if (args is! ExamArgs) {
-                return const Scaffold(
-                  body: Center(child: Text('Invalid exam arguments')),
-                );
-              }
+              final args =
+              ModalRoute.of(ctx)!.settings.arguments as ExamArgs;
               return ExamScreen(args: args);
             },
+            // ✅ added score route
+            AppRoutes.examScore: (ctx) {
+              final args =
+              ModalRoute.of(ctx)!.settings.arguments as ExamScoreArgs;
+              return ExamScoreScreen(args: args);
+            },
           },
-
-          home: ExamScreen(
-            args: const ExamArgs(
-              examId: '67c4a56e3e88ac7e1fe09a09',
-              examTitle: 'Data Structures Quiz',
-              durationInSeconds: 600,
-            ),
-          ),
+          initialRoute: AppRoutes.login,
         );
       },
     );

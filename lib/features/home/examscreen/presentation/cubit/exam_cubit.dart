@@ -47,7 +47,7 @@ class ExamCubit extends Cubit<ExamState> {
     );
   }
 
-  // ── Timer (Fixed) ──────────────────────────────────────────────────────────
+  // ── Timer ──────────────────────────────────────────────────────────────────
 
   void _startTimer(int durationInSeconds) {
     _timer?.cancel();
@@ -64,8 +64,7 @@ class ExamCubit extends Cubit<ExamState> {
         return;
       }
 
-      final remaining =
-          _endTime!.difference(DateTime.now()).inSeconds;
+      final remaining = _endTime!.difference(DateTime.now()).inSeconds;
 
       if (remaining <= 0) {
         _timer?.cancel();

@@ -1,5 +1,3 @@
-// lib/features/home/examscreen/presentation/cubit/exam_state.dart
-
 import 'package:equatable/equatable.dart';
 import '../../domain/entities/exam_questions_entity.dart';
 
