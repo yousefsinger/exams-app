@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../../../core/values/app_colors.dart';
+import '../../../../../core/values/app_strings.dart';
 import '../../../../../core/values/app_styles.dart';
 import '../view_model/bloc/forget_password_events.dart';
 import '../view_model/bloc/forget_password_states.dart';
@@ -38,7 +39,7 @@ class _OtpScreenState extends State<OtpScreen> {
       margin: EdgeInsets.symmetric(horizontal: 4.w),
       textStyle: AppStyles.medium20Black,
       decoration: BoxDecoration(
-        color: const Color(0xffDFE7F7),
+        color:  AppColors.icyBlueColor,
         borderRadius: BorderRadius.circular(10.r),
       ),
     );
@@ -79,7 +80,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(const SnackBar(content: Text('Code sent again')));
+          ).showSnackBar(const SnackBar(content: Text(AppStrings.codeSentAgain)));
         }
 
         if (resendState?.errorMessage != null) {
@@ -99,7 +100,7 @@ class _OtpScreenState extends State<OtpScreen> {
               },
               icon: const Icon(Icons.arrow_back_ios_new_outlined),
             ),
-            title: const Text('Password'),
+            title: const Text(AppStrings.password),
           ),
 
           body: Padding(
@@ -108,9 +109,9 @@ class _OtpScreenState extends State<OtpScreen> {
             child: Column(
               children: [
                 CustomForgetPasswordTextWidget(
-                  text1: 'Email verification',
+                  text1: AppStrings.emailVerification,
                   text2:
-                      'Please enter your code that send to your\n email address',
+                      AppStrings.enterYourCodeText,
                 ),
 
                 Padding(
@@ -133,7 +134,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Didn't receive code?"),
+                    const Text(AppStrings.didNotReceiveCode),
                     TextButton(
                       onPressed: () {
                         viewModel.verifyCodeController.clear();
@@ -143,7 +144,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         );
                       },
                       child: Text(
-                        'Resend',
+                        AppStrings.resend,
                         style: TextStyle(color: AppColors.primaryColor),
                       ),
                     ),

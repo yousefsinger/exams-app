@@ -10,13 +10,13 @@ import '../../data/models/reset_password/reset_password_response.dart';
 import '../../data/models/verify_password/verify_reset_code_request.dart';
 import '../../data/models/verify_password/verify_reset_code_response.dart';
 
-part 'api_client.g.dart';
+part 'forget_password_api_client.g.dart';
 
 @lazySingleton
 @RestApi()
-abstract class ApiClient {
+abstract class ForgetPasswordApiClient {
   @factoryMethod
-  factory ApiClient(Dio dio) = _ApiClient;
+  factory ForgetPasswordApiClient(Dio dio) = _ForgetPasswordApiClient;
 
   @POST(ApiConstants.forgetPassword)
   Future<ForgetPasswordResponse> forgetPassword(

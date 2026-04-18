@@ -1,4 +1,4 @@
-import '../../../domain/models/reset_password_model.dart';
+import '../../../domain/models/reset_password_entity.dart';
 
 class ResetPasswordResponse {
   final String? token;
@@ -12,7 +12,7 @@ class ResetPasswordResponse {
         message: json['message'] as String?,
       );
 
-  ResetPasswordModel toModel() {
-    return ResetPasswordModel(token: token ?? '', message: message ?? '');
+  ResetPasswordEntity toModel() {
+    return ResetPasswordEntity(token: token ?? '', message: message ?? '');
   }
 }

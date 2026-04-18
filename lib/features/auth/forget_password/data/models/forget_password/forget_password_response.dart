@@ -1,4 +1,4 @@
-import '../../../domain/models/forget_password_model.dart';
+import '../../../domain/models/forget_password_entity.dart';
 
 class ForgetPasswordResponse {
   final String? message;
@@ -12,7 +12,7 @@ class ForgetPasswordResponse {
         info: json['info'] as String?,
       );
 
-  ForgetPasswordModel toModel() {
-    return ForgetPasswordModel(message: message ?? '', info: info);
+  ForgetPasswordEntity toModel() {
+    return ForgetPasswordEntity(message: message ?? '', info: info);
   }
 }

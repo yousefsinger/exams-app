@@ -2,9 +2,9 @@
 import 'package:injectable/injectable.dart';
 
 import '../../../../../config/api/base_response.dart';
-import '../../domain/models/forget_password_model.dart';
-import '../../domain/models/reset_password_model.dart';
-import '../../domain/models/verifiy_reset_code_model.dart';
+import '../../domain/models/forget_password_entity.dart';
+import '../../domain/models/reset_password_entity.dart';
+import '../../domain/models/verifiy_reset_code_entity.dart';
 import '../../domain/repository/forget_password_repo_contract.dart';
 import '../data_sources/forget_password_data_source_contract.dart';
 import '../models/forget_password/forget_password_request.dart';
@@ -20,7 +20,7 @@ class ForgetPasswordRepoImple implements ForgetPasswordRepoContract {
   ForgetPasswordRepoImple(this._dataSource);
 
   @override
-  Future<BaseResponse<ForgetPasswordModel>> forgetPassword(
+  Future<BaseResponse<ForgetPasswordEntity>> forgetPassword(
     ForgetPasswordRequest request,
   ) async {
     final response = await _dataSource.forgetPassword(request);
@@ -36,7 +36,7 @@ class ForgetPasswordRepoImple implements ForgetPasswordRepoContract {
   }
 
   @override
-  Future<BaseResponse<ResetPasswordModel>> resetPassword(
+  Future<BaseResponse<ResetPasswordEntity>> resetPassword(
     ResetPasswordRequest request,
   ) async {
     final response = await _dataSource.resetPassword(request);
@@ -52,7 +52,7 @@ class ForgetPasswordRepoImple implements ForgetPasswordRepoContract {
   }
 
   @override
-  Future<BaseResponse<VerifyResetCodeModel>> verifyResetCode(
+  Future<BaseResponse<VerifiyResetCodeEntity>> verifyResetCode(
     VerifyResetCodeRequest request,
   ) async {
     final response = await _dataSource.verifyResetCode(request);
