@@ -17,5 +17,12 @@ abstract class AppStrings {
   static const String passwordValidationText = 'Password must not be empty and must contain\n'
       '6 characters with upper case letter and one\n'
       'number at least';
+  static const String surveyText = 'Survey';
+  static const String browseBySubjectText = 'Browse by subject';
+  static const String noSubjectsAvailableText = 'No subjects available';
+  static const String search = 'search';
+  static const String explore = 'Explore';
+  static const String result = 'Result';
+  static const String profile = 'Profile';
 
 }

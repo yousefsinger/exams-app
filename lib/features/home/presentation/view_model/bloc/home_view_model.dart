@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../config/api/base_response.dart';
 import '../../../../../../config/api/base_states.dart';
-
 import '../../../domain/model/subject.dart';
 import '../../../domain/use_cases/home_use_case.dart';
 import 'home_events.dart';
@@ -46,7 +45,6 @@ class HomeViewModel extends Cubit<HomeStates> {
             getAllSubjectStats: BaseState<List<SubjectEntity>>(
               data: _allSubjects,
               isLoading: false,
-              errorMessage: '',
             ),
           ),
         );
@@ -82,7 +80,6 @@ class HomeViewModel extends Cubit<HomeStates> {
         getAllSubjectStats: BaseState<List<SubjectEntity>>(
           data: filtered,
           isLoading: false,
-          errorMessage: '',
         ),
       ),
     );
