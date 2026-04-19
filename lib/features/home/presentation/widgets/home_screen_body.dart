@@ -1,9 +1,9 @@
+import 'package:exam_app/core/values/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+
 import '../../../../../core/values/app_styles.dart';
-import '../../domain/model/subject.dart';
 import '../view_model/bloc/home_events.dart';
 import '../view_model/bloc/home_states.dart';
 import '../view_model/bloc/home_view_model.dart';
@@ -18,11 +18,14 @@ class HomeScreenBody extends StatefulWidget {
 }
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
+  late final HomeViewModel viewModel;
+
   @override
   void initState() {
     super.initState();
 
-    context.read<HomeViewModel>().doIntent(GetAllSubjectsEvent());
+    viewModel = context.read<HomeViewModel>();
+    viewModel.doIntent(GetAllSubjectsEvent());
   }
 
   @override
@@ -34,50 +37,41 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 8.h),
-            Text('Survey', style: AppStyles.medium20Primary),
+            Text(AppStrings.surveyText, style: AppStyles.medium20Primary),
             SizedBox(height: 16.h),
             CustomSearch(
-              onChanged: (value) {
-                context.read<HomeViewModel>().onSearchChanged(value);
-              },
+              onChanged: viewModel.onSearchChanged,
             ),
             SizedBox(height: 40.h),
-            Text('Browse by subject', style: AppStyles.medium18Black),
+            Text(AppStrings.browseBySubjectText, style: AppStyles.medium18Black),
             SizedBox(height: 16.h),
             Expanded(
               child: BlocBuilder<HomeViewModel, HomeStates>(
+                buildWhen: (prev, curr) =>
+                    prev.getAllSubjectStats != curr.getAllSubjectStats,
                 builder: (context, state) {
-                  if (state.getAllSubjectStats?.isLoading == true) {
-                    return Skeletonizer(
-                      child: ListViewItems(
-                        subjects: List.generate(
-                          6,
-                          (index) => SubjectEntity(
-                            id: index.toString(),
-                            name: 'Loading...',
-                            icon: '',
-                          ),
-                        ),
-                      ),
+                  final subjectState = state.getAllSubjectStats;
+                  if (subjectState == null || subjectState.isLoading == true) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                  } else if (state.getAllSubjectStats?.errorMessage != null &&
-                      state.getAllSubjectStats!.errorMessage!.isNotEmpty) {
+                  }
+                  if (subjectState.errorMessage?.isNotEmpty == true) {
                     return Center(
                       child: Text(
-                        state.getAllSubjectStats!.errorMessage!,
+                        subjectState.errorMessage!,
                         style: const TextStyle(color: Colors.red),
                       ),
                     );
-                  } else if (state.getAllSubjectStats?.data != null &&
-                      state.getAllSubjectStats!.data!.isNotEmpty) {
-                    return ListViewItems(
-                      subjects: state.getAllSubjectStats!.data!,
-                    );
-                  } else {
-                    return const Center(
-                      child: Text("No subjects available"),
-                    );
                   }
+                  final subjects = subjectState.data;
+
+                  if (subjects != null && subjects.isNotEmpty) {
+                    return ListViewItems(subjects: subjects);
+                  }
+                  return const Center(
+                    child: Text(AppStrings.noSubjectsAvailableText),
+                  );
                 },
               ),
             ),

@@ -46,7 +46,6 @@ class HomeViewModel extends Cubit<HomeStates> {
             getAllSubjectStats: BaseState<List<SubjectEntity>>(
               data: _allSubjects,
               isLoading: false,
-              errorMessage: '',
             ),
           ),
         );
@@ -82,7 +81,6 @@ class HomeViewModel extends Cubit<HomeStates> {
         getAllSubjectStats: BaseState<List<SubjectEntity>>(
           data: filtered,
           isLoading: false,
-          errorMessage: '',
         ),
       ),
     );

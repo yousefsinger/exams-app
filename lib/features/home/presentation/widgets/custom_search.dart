@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/values/app_colors.dart';
 import '../../../../../core/values/app_styles.dart';
+import '../../../../core/values/app_strings.dart';
 
 class CustomSearch extends StatelessWidget {
   final Function(String)? onChanged;
@@ -17,7 +18,7 @@ class CustomSearch extends StatelessWidget {
     return TextFormField(
       onChanged: onChanged,
       decoration: InputDecoration(
-        hintText: 'search',
+        hintText: AppStrings.search,
         hintStyle: AppStyles.medium14LightGray,
         prefixIcon: Icon(
           Icons.search,
