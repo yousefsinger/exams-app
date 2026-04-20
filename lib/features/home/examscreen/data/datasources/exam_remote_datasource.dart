@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../../config/cashe/secure_storage.dart';
 import '../../api/exam_api_client.dart';
 import '../models/models.dart';
-@injectable
+
 
 // ── Contract ──────────────────────────────────────────────────────────────
 

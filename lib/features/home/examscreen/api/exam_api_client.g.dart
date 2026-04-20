@@ -7,9 +7,6 @@
 part of 'exam_api_client.dart';
 
 
-@injectable
-
-
 
 class _ExamApiClient implements ExamApiClient {
   _ExamApiClient(this._dio, {this.baseUrl, this.errorLogger});

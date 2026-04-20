@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:injectable/injectable.dart';
 import '../../../../../config/di/di.dart';
 import '../../../../../core/values/app_colors.dart';
 import '../../../../../core/values/app_routes.dart';
@@ -19,7 +20,7 @@ import '../widgets/time_out_dialog.dart';
 // ─────────────────────────────────────────────
 // ARGS
 // ─────────────────────────────────────────────
-
+@injectable
 class ExamArgs {
   final String examId;
   final String examTitle;
