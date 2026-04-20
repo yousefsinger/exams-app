@@ -11,5 +11,7 @@ abstract class ApiConstants {
   static const String subjectById = "/subjects/{id}";
   static const String examsOnSubject = "exams";
   static const String getQuestions = "questions";
+  static const String updateProfile = "auth/editProfile";
+  static const String changePasswordProfile = "auth/changePassword";
 
 }
