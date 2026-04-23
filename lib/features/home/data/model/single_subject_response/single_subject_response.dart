@@ -5,15 +5,15 @@ import 'category.dart';
 part 'single_subject_response.g.dart';
 
 @JsonSerializable()
-class SingelSubjectResponse {
+class SingleSubjectResponse {
   String? message;
   Category? category;
 
-  SingelSubjectResponse({this.message, this.category});
+  SingleSubjectResponse({this.message, this.category});
 
-  factory SingelSubjectResponse.fromJson(Map<String, dynamic> json) {
-    return _$SingelSubjectResponseFromJson(json);
+  factory SingleSubjectResponse.fromJson(Map<String, dynamic> json) {
+    return _$SingleSubjectResponseFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$SingelSubjectResponseToJson(this);
+  Map<String, dynamic> toJson() => _$SingleSubjectResponseToJson(this);
 }

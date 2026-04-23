@@ -1,6 +1,6 @@
 import '../../../../../config/api/base_response.dart';
 import '../model/subject_response/subject.dart';
 
-abstract interface class HomeRemoteDatasourceContract {
+abstract interface class ExploreRemoteDatasourceContract {
   Future<BaseResponse<List<Subject>>> getAllSubjects();
 }

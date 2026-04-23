@@ -1,22 +1,18 @@
-
+import 'package:exam_app/config/api/base_response.dart';
+import 'package:exam_app/features/home/data/data_sources/explore_remote_data_source_contract.dart';
+import 'package:exam_app/features/home/data/model/subject_response/subject.dart';
+import 'package:exam_app/features/home/domain/model/subject.dart';
+import 'package:exam_app/features/home/domain/repository/explore_repo_contract.dart';
 import 'package:injectable/injectable.dart';
+@Injectable(as: ExploreRepoContract)
+class ExploreRepoImpl implements ExploreRepoContract {
+  final ExploreRemoteDatasourceContract _exploreRemoteDatasourceContract;
 
-import '../../../../../config/api/base_response.dart';
-import '../../api/home_api_client/home_api_client.dart';
-import '../../domain/model/subject.dart';
-import '../../domain/repository/home_repo_contract.dart';
-import '../data_sources/home_remote_data_source_contract.dart';
-import '../model/subject_response/subject.dart';
-
-@Injectable(as: HomeRepoContract)
-class HomeRepoImple implements HomeRepoContract {
-  final HomeRemoteDatasourceContract _homeRemoteDatasourceContract;
-
-  HomeRepoImple(this._homeRemoteDatasourceContract);
+  ExploreRepoImpl(this._exploreRemoteDatasourceContract);
   @override
   Future<BaseResponse<List<SubjectEntity>>> getAllSubjects() async {
     BaseResponse<List<Subject>> subjectsResponse =
-    await _homeRemoteDatasourceContract.getAllSubjects();
+    await _exploreRemoteDatasourceContract.getAllSubjects();
     switch (subjectsResponse) {
       case SuccessResponse<List<Subject>>():
         List<Subject> subjectsDTOs = subjectsResponse.data;

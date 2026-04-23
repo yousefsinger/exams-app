@@ -1,24 +1,23 @@
 import 'package:equatable/equatable.dart';
+import 'package:exam_app/config/api/base_states.dart';
+import 'package:exam_app/features/home/domain/model/subject.dart';
 
-import '../../../../../../config/api/base_states.dart';
-import '../../../domain/model/subject.dart';
 
-class HomeStates extends Equatable {
-  BaseState<List<SubjectEntity>>? getAllSubjectStats;
+class ExploreStates extends Equatable {
+  final BaseState<List<SubjectEntity>>? getAllSubjectStats;
 
-  HomeStates({
+  const ExploreStates({
     this.getAllSubjectStats,
   });
 
-  HomeStates copyWith({
+  ExploreStates copyWith({
     BaseState<List<SubjectEntity>>? getAllSubjectStats,
   }) {
-    return HomeStates(
+    return ExploreStates(
       getAllSubjectStats: getAllSubjectStats ?? this.getAllSubjectStats,
     );
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [getAllSubjectStats];
 }

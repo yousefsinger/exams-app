@@ -1,30 +1,31 @@
 import 'dart:async';
-
+import 'package:exam_app/config/api/base_response.dart';
+import 'package:exam_app/config/api/base_states.dart';
+import 'package:exam_app/features/home/domain/model/subject.dart';
+import 'package:exam_app/features/home/domain/use_cases/explore_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../../../../../config/api/base_response.dart';
-import '../../../../../../config/api/base_states.dart';
-
-import '../../../domain/model/subject.dart';
-import '../../../domain/use_cases/home_use_case.dart';
-import 'home_events.dart';
+import 'explore_events.dart';
 import 'home_states.dart';
 
 @injectable
-class HomeViewModel extends Cubit<HomeStates> {
-  final HomeUseCase _homeUseCase;
+class HomeViewModel extends Cubit<ExploreStates> {
+  final ExploreUseCase _homeUseCase;
 
-  HomeViewModel(this._homeUseCase) : super(HomeStates());
+  HomeViewModel(this._homeUseCase) : super(ExploreStates());
 
   List<SubjectEntity> _allSubjects = [];
 
   Timer? _debounce;
 
-  void doIntent(HomeEvents event) {
+  void doIntent(ExploreEvents event) {
     switch (event) {
       case GetAllSubjectsEvent():
         _getAllSubjects();
+        break;
+      case SearchSubjectsEvent(:final query):
+        _searchSubjects(query);
+        break;
     }
   }
 
@@ -39,7 +40,7 @@ class HomeViewModel extends Cubit<HomeStates> {
 
     switch (response) {
       case SuccessResponse<List<SubjectEntity>>():
-        _allSubjects = response.data ?? [];
+        _allSubjects = response.data;
 
         emit(
           state.copyWith(
@@ -62,7 +63,7 @@ class HomeViewModel extends Cubit<HomeStates> {
     }
   }
 
-  void searchSubjects(String query) {
+  void _searchSubjects(String query) {
     final normalizedQuery = query.trim().toLowerCase();
 
     List<SubjectEntity> filtered;
@@ -71,7 +72,7 @@ class HomeViewModel extends Cubit<HomeStates> {
       filtered = _allSubjects;
     } else {
       filtered = _allSubjects.where((subject) {
-        final name = (subject.name ?? '').toLowerCase();
+        final name = (subject.name).toLowerCase();
         return name.contains(normalizedQuery);
       }).toList();
     }
@@ -84,14 +85,6 @@ class HomeViewModel extends Cubit<HomeStates> {
         ),
       ),
     );
-  }
-
-  void onSearchChanged(String query) {
-    if (_debounce?.isActive ?? false) _debounce!.cancel();
-
-    _debounce = Timer(const Duration(milliseconds: 300), () {
-      searchSubjects(query);
-    });
   }
 
   @override

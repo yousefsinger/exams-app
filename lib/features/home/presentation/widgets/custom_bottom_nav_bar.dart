@@ -1,7 +1,7 @@
+import 'package:exam_app/core/values/app_colors.dart';
+import 'package:exam_app/core/values/app_strings.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/values/app_colors.dart';
-import '../../domain/model/bottom_nav_bar_data.dart';
 import 'nav_bar_item.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
@@ -16,6 +16,23 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final items = [
+      (
+        icon: Icons.home_outlined,
+        activeIcon: Icons.home_outlined,
+        label: AppStrings.explore
+      ),
+      (
+        icon: Icons.assignment_outlined,
+        activeIcon: Icons.assignment_outlined,
+        label: AppStrings.result
+      ),
+      (
+        icon: Icons.person_outline,
+        activeIcon: Icons.person_outline,
+        label: AppStrings.profile
+      ),
+    ];
     return Container(
       height: 80,
       decoration: BoxDecoration(
@@ -29,14 +46,14 @@ class CustomBottomNavBar extends StatelessWidget {
         ],
       ),
       child: Row(
-        children: BottomNavigationBarItems.asMap().entries.map((e) {
+        children: items.asMap().entries.map((e) {
           final index = e.key;
           final item = e.value;
 
           return Expanded(
             child: NavBarItem(
-              icon: currentIndex == index ? item.activeIcon : item.inActiveIcon,
-              name: item.name,
+              icon: currentIndex == index ? item.activeIcon : item.icon,
+              name: item.label,
               isActive: currentIndex == index,
               onTap: () {
                 onTap(index);

@@ -5,10 +5,10 @@ import '../../../../../core/values/app_colors.dart';
 import '../../../../../core/values/app_styles.dart';
 import '../../../../core/values/app_strings.dart';
 
-class CustomSearch extends StatelessWidget {
+class CustomSearchField extends StatelessWidget {
   final Function(String)? onChanged;
 
-  const CustomSearch({
+  const CustomSearchField({
     super.key,
     this.onChanged,
   });

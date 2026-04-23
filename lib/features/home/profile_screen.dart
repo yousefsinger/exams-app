@@ -1,6 +1,6 @@
+import 'package:exam_app/core/values/app_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/values/app_colors.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

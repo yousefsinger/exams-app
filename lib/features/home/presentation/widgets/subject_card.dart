@@ -1,11 +1,11 @@
+import 'package:exam_app/core/values/app_colors.dart';
+import 'package:exam_app/core/values/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/values/app_colors.dart';
-import '../../../../../core/values/app_styles.dart';
 
-class HomeScreenItem extends StatelessWidget {
-  const HomeScreenItem({
+class SubjectCard extends StatelessWidget {
+  const SubjectCard({
     super.key,
     required this.iconPath,
     required this.name,

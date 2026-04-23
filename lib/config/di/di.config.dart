@@ -59,14 +59,16 @@ import '../../features/auth/signup/domain/use_cases/signup_use_case.dart'
     as _i410;
 import '../../features/auth/signup/presentation/cubit/signup_cubit.dart'
     as _i842;
-import '../../features/home/api/data_sources/home_remote_data_source_impl.dart'
-    as _i1033;
-import '../../features/home/api/home_api_client/home_api_client.dart' as _i866;
-import '../../features/home/data/data_sources/home_remote_data_source_contract.dart'
-    as _i582;
+import '../../features/home/api/data_sources/explore_remote_data_source_impl.dart'
+    as _i622;
+import '../../features/home/api/explore_api_client/explore_api_client.dart'
+    as _i71;
+import '../../features/home/data/data_sources/explore_remote_data_source_contract.dart'
+    as _i384;
 import '../../features/home/data/repository/home_repo_impl.dart' as _i1013;
-import '../../features/home/domain/repository/home_repo_contract.dart' as _i968;
-import '../../features/home/domain/use_cases/home_use_case.dart' as _i933;
+import '../../features/home/domain/repository/explore_repo_contract.dart'
+    as _i1010;
+import '../../features/home/domain/use_cases/explore_use_case.dart' as _i900;
 import '../../features/home/presentation/view_model/bloc/home_view_model.dart'
     as _i48;
 import '../api/dio_module.dart' as _i784;
@@ -91,20 +93,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => appModule.secureStorage);
     gh.lazySingleton<_i486.SecureStorage>(
         () => _i486.SecureStorage(storage: gh<_i558.FlutterSecureStorage>()));
+    gh.factory<_i384.ExploreRemoteDatasourceContract>(
+        () => _i622.ExploreRemoteDatasourceImpl(gh<InvalidType>()));
     gh.lazySingleton<_i361.Dio>(
         () => appModule.provideDio(gh<_i157.UserSession>()));
+    gh.factory<_i1010.ExploreRepoContract>(() =>
+        _i1013.ExploreRepoImpl(gh<_i384.ExploreRemoteDatasourceContract>()));
     gh.lazySingleton<_i251.LoginApiClient>(
         () => dioModule.loginApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i877.SignupApiClient>(
         () => dioModule.signupApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i478.ForgetPasswordApiClient>(
         () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()));
-    gh.lazySingleton<_i866.HomeApiClient>(
-        () => _i866.HomeApiClient(gh<_i361.Dio>()));
-    gh.factory<_i582.HomeRemoteDatasourceContract>(
-        () => _i1033.HomeRemoteDatasourceImpe(gh<_i866.HomeApiClient>()));
-    gh.factory<_i968.HomeRepoContract>(
-        () => _i1013.HomeRepoImple(gh<_i582.HomeRemoteDatasourceContract>()));
+    gh.lazySingleton<_i71.ExploreApiClient>(
+        () => _i71.ExploreApiClient(gh<_i361.Dio>()));
     gh.factory<_i15.LoginDataSourceContract>(() =>
         _i466.LoginDataSourceImpl(loginApiClient: gh<_i251.LoginApiClient>()));
     gh.factory<_i378.SignUpDataSourceContract>(
@@ -112,13 +114,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i236.ForgetPasswordRemoteDataSourceContract>(() =>
         _i1058.ForgetPasswordRemoteDatasourceImple(
             gh<_i478.ForgetPasswordApiClient>()));
-    gh.factory<_i933.HomeUseCase>(
-        () => _i933.HomeUseCase(gh<_i968.HomeRepoContract>()));
+    gh.factory<_i900.ExploreUseCase>(
+        () => _i900.ExploreUseCase(gh<_i1010.ExploreRepoContract>()));
     gh.factory<_i649.ForgetPasswordRepoContract>(() =>
         _i1026.ForgetPasswordRepoImple(
             gh<_i236.ForgetPasswordRemoteDataSourceContract>()));
-    gh.factory<_i48.HomeViewModel>(
-        () => _i48.HomeViewModel(gh<_i933.HomeUseCase>()));
     gh.factory<_i106.SignUpRepoContract>(
         () => _i858.SignUpRepoImpl(gh<_i378.SignUpDataSourceContract>()));
     gh.factory<_i359.LoginRepoContract>(() => _i321.LoginRepoImpl(
@@ -126,6 +126,8 @@ extension GetItInjectableX on _i174.GetIt {
           secureStorage: gh<_i486.SecureStorage>(),
           userSession: gh<_i157.UserSession>(),
         ));
+    gh.factory<_i48.HomeViewModel>(
+        () => _i48.HomeViewModel(gh<_i900.ExploreUseCase>()));
     gh.factory<_i913.ForgetPasswordUseCase>(() =>
         _i913.ForgetPasswordUseCase(gh<_i649.ForgetPasswordRepoContract>()));
     gh.factory<_i22.ResetPasswordUseCase>(() =>

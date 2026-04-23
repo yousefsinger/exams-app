@@ -1,11 +1,9 @@
+import 'package:exam_app/core/values/app_colors.dart';
+import 'package:exam_app/features/home/presentation/widgets/Explore_screen.dart';
+import 'package:exam_app/features/home/presentation/widgets/custom_bottom_nav_bar.dart';
+import 'package:exam_app/features/home/profile_screen.dart' show ProfileScreen;
+import 'package:exam_app/features/home/result_screen.dart' show ResultScreen;
 import 'package:flutter/material.dart';
-
-import '../../../../../core/values/app_colors.dart';
-import '../../profile_screen.dart';
-import '../../result_screen.dart';
-import '../widgets/custom_bottom_nav_bar.dart';
-import '../widgets/home_screen_body.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -17,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
 
   final List<Widget> screens = const [
-    HomeScreenBody(), // Explore
+    ExploreScreen(),
     ResultScreen(),
     ProfileScreen(),
   ];
