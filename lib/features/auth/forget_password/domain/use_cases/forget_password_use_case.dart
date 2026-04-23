@@ -11,8 +11,8 @@ class ForgetPasswordUseCase {
 
   ForgetPasswordUseCase(this._forgetPasswordRepoContract);
 
-  Future<BaseResponse<ForgetPasswordEntity>> callForgetPassword(String email) {
-    final request = ForgetPasswordRequest(email: email);
+  Future<BaseResponse<ForgetPasswordEntity>> callForgetPassword(
+      ForgetPasswordRequest request) {
     return _forgetPasswordRepoContract.forgetPassword(request);
   }
 }

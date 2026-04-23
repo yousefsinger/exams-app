@@ -18,6 +18,13 @@ abstract class AppStrings {
       '6 characters with upper case letter and one\n'
       'number at least';
   static const String surveyText = 'Survey';
+  static const String thisFieldRequired  = 'this field is required ';
+  static const String enterValidEmail  = 'enter valid email';
+  static const String enterStrongPassword  = 'enter strong password';
+  static const String enterSamePassword  = 'enter same password';
+  static const String enterValidUsername  = 'enter valid username';
+  static const String enterNumbersOnly  = 'enter numbers only';
+  static const String valueMustEqual11Digit  = 'value must equal 11 digit';
   static const String browseBySubjectText = 'Browse by subject';
   static const String noSubjectsAvailableText = 'No subjects available';
   static const String search = 'search';

@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:exam_app/config/auth_interceptor/auth_interceptor.dart';
+import 'package:exam_app/config/cashe/user_session.dart';
+import 'package:exam_app/core/values/api_constants.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../core/values/api_constants.dart';
-import '../cashe/user_session.dart';
-
 @module
 abstract class AppModule {
-
   @lazySingleton
   FlutterSecureStorage get secureStorage => const FlutterSecureStorage();
 
@@ -25,31 +24,7 @@ abstract class AppModule {
       ),
     );
 
-    dio.interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (options, handler) {
-          final String? token = userSession.token?.trim();
-
-          if (token != null && token.isNotEmpty) {
-            options.headers['token'] = token;
-          }
-
-
-
-          return handler.next(options);
-        },
-        onResponse: (response, handler) {
-          return handler.next(response);
-        },
-        onError: (DioException e, handler) {
-          if (e.response?.statusCode == 401) {
-            print("⚠️ Unauthorized: Server rejected the token.");
-            print("Server Message: ${e.response?.data}");
-          }
-          return handler.next(e);
-        },
-      ),
-    );
+    dio.interceptors.add(AuthInterceptor(userSession));
 
     return dio;
   }

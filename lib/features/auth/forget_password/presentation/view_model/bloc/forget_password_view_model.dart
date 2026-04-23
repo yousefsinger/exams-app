@@ -1,3 +1,6 @@
+import 'package:exam_app/features/auth/forget_password/data/models/forget_password/forget_password_request.dart';
+import 'package:exam_app/features/auth/forget_password/data/models/reset_password/reset_password_request.dart';
+import 'package:exam_app/features/auth/forget_password/data/models/verify_password/verify_reset_code_request.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -38,38 +41,49 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
     switch (event) {
       case SubmitEmailEvent():
         _forgetPassword(event);
+     break;
 
       case VerifyCodeEvent():
         _verifyResetCode(event);
-
+break;
       case ResetPasswordEvent():
         _resetPassword(event);
+        break;
 
       case ToggleNewPasswordVisibilityEvent():
         _toggleNewPasswordVisibility();
+        break;
 
       case ToggleConfirmPasswordVisibilityEvent():
         _toggleConfirmPasswordVisibility();
+        break;
 
       case UpdateButtonState():
         emit(state.copyWith());
+        break;
 
       case ValidateEmailEvent():
         userEmail = emailController.text.trim();
         _validateEmail();
+        break;
 
       case ValidateCodeEvent():
         _validateCode();
+        break;
 
       case ValidateNewPasswordEvent():
         _validateNewPassword();
+        break;
 
       case ResendCodeEvent():
         _resendCode(event);
+        break;
 
       case ResetResendCodeState():
         emit(
             state.copyWith(resendCodeState: BaseState<ForgetPasswordEntity>()));
+        break;
+
     }
   }
 
@@ -80,9 +94,8 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
       ),
     );
 
-    final response = await _forgetPasswordUseCase.callForgetPassword(
-      event.email,
-    );
+    final response = await _forgetPasswordUseCase
+        .callForgetPassword(ForgetPasswordRequest(email: event.email));
 
     switch (response) {
       case SuccessResponse<ForgetPasswordEntity>():
@@ -116,9 +129,10 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
       ),
     );
 
-    final response = await _verifyResetPasswordUseCase.callVerifyResetCode(
-      event.code,
-    );
+    final response = await _verifyResetPasswordUseCase
+        .callVerifyResetCode(VerifyResetCodeRequest(
+      resetCode: event.code,
+    ));
 
     switch (response) {
       case SuccessResponse<VerifiyResetCodeEntity>():
@@ -151,9 +165,8 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
     );
 
     final response = await _resetPasswordUseCase.callResetPassword(
-      event.email,
-      event.newPassword,
-    );
+        ResetPasswordRequest(
+            email: event.email, newPassword: event.newPassword));
 
     switch (response) {
       case SuccessResponse<ResetPasswordEntity>():
@@ -224,7 +237,7 @@ class ForgetPasswordViewModel extends Cubit<ForgetPasswordStates> {
     );
 
     final response = await _forgetPasswordUseCase.callForgetPassword(
-      event.email,
+      ForgetPasswordRequest(email: event.email),
     );
 
     switch (response) {

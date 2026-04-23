@@ -1,10 +1,8 @@
+import 'package:exam_app/core/values/app_colors.dart';
+import 'package:exam_app/core/values/app_strings.dart';
+import 'package:exam_app/core/values/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../core/values/app_colors.dart';
-import '../../../../../core/values/app_styles.dart';
-import '../../../../core/values/app_strings.dart';
-
 class CustomSearchField extends StatelessWidget {
   final Function(String)? onChanged;
 

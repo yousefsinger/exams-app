@@ -8,6 +8,7 @@ import '../../features/auth/signup/api/signup_api_client/signup_api_client.dart'
 abstract class DioModule {
   @lazySingleton
   LoginApiClient loginApiClient(Dio dio) => LoginApiClient(dio);
+
   @lazySingleton
-  SignupApiClient  signupApiClient(Dio dio) => SignupApiClient(dio);
+  SignupApiClient signupApiClient(Dio dio) => SignupApiClient(dio);
 }

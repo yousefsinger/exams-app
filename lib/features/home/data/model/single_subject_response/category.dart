@@ -18,6 +18,6 @@ class Category {
   }
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
-  toDomain() =>
+  SubjectEntity toDomain() =>
       SubjectEntity(id: id ?? "", name: name ?? "", icon: icon ?? "");
 }

@@ -48,7 +48,7 @@ class ForgetPasswordRemoteDatasourceImple
       return ErrorResponse(errorMessage: ErrorHandler.handleError(e));
     } catch (e, stackTrace) {
       log('[StackTrace] $stackTrace');
-      return ErrorResponse(errorMessage: 'Unexpected error occurred');
+      return ErrorResponse(errorMessage: ApiErrorsConstants.unknownError);
     }
   }
 

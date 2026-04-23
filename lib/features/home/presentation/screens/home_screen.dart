@@ -1,8 +1,8 @@
 import 'package:exam_app/core/values/app_colors.dart';
 import 'package:exam_app/features/home/presentation/widgets/Explore_screen.dart';
 import 'package:exam_app/features/home/presentation/widgets/custom_bottom_nav_bar.dart';
-import 'package:exam_app/features/home/profile_screen.dart' show ProfileScreen;
-import 'package:exam_app/features/home/result_screen.dart' show ResultScreen;
+import 'package:exam_app/features/home/profile_screen.dart'  ;
+import 'package:exam_app/features/home/result_screen.dart'  ;
 import 'package:flutter/material.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

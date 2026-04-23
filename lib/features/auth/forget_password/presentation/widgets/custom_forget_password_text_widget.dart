@@ -2,12 +2,12 @@ import 'package:flutter/material.dart' show BuildContext, Center, Column, EdgeIn
 
 import '../../../../../core/values/app_styles.dart';
 
-class CustomForgetPasswordTextWidget extends StatelessWidget {
-  String text1;
+class CustomForgetPasswordHeaderWidget extends StatelessWidget {
+  final String text1;
 
-  String text2;
+  final String text2;
 
-  CustomForgetPasswordTextWidget({super.key, required this.text1, required this.text2});
+  const CustomForgetPasswordHeaderWidget({super.key, required this.text1, required this.text2});
 
   @override
   Widget build(BuildContext context) {

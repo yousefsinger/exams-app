@@ -8,6 +8,5 @@ class BaseState<T> extends Equatable {
   const BaseState({this.isLoading = false, this.errorMessage, this.data});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [isLoading, errorMessage, data];
 }

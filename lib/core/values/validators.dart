@@ -1,14 +1,15 @@
+import 'package:exam_app/core/values/app_strings.dart';
+
 abstract class AppValidators {
-  AppValidators._();
 
   static String? validateEmail(String? value) {
     RegExp emailRegex = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
     );
     if (value == null || value.trim().isEmpty) {
-      return 'this field is required ';
+      return AppStrings.thisFieldRequired;
     } else if (emailRegex.hasMatch(value) == false) {
-      return 'enter valid email';
+      return AppStrings.enterValidEmail;
     } else {
       return null;
     }
@@ -19,9 +20,9 @@ abstract class AppValidators {
       r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
     );
     if (value == null || value.trim().isEmpty) {
-      return 'this field is required ';
+      return AppStrings.thisFieldRequired;
     } else if (value.length < 8 || !passwordRegex.hasMatch(value)) {
-      return 'enter strong password';
+      return AppStrings.enterStrongPassword;
     } else {
       return null;
     }
@@ -29,9 +30,9 @@ abstract class AppValidators {
 
   static String? validateConfirmPassword(String? value, String? password) {
     if (value == null || value.trim().isEmpty) {
-      return 'this field is required ';
+      return AppStrings.thisFieldRequired;
     } else if (value != password) {
-      return 'enter same password';
+      return AppStrings.enterSamePassword;
     } else {
       return null;
     }
@@ -40,9 +41,9 @@ abstract class AppValidators {
   static String? validateUsername(String? value) {
     RegExp usernameRegex = RegExp(r'^[a-zA-Z0-9,.-]+$');
     if (value == null || value.trim().isEmpty) {
-      return 'this field is required ';
+      return AppStrings.thisFieldRequired;
     } else if (!usernameRegex.hasMatch(value)) {
-      return 'enter valid username';
+      return AppStrings.enterValidUsername;
     } else {
       return null;
     }
@@ -50,7 +51,7 @@ abstract class AppValidators {
 
   static String? validateFullName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'this field is required ';
+      return AppStrings.thisFieldRequired;
     } else {
       return null;
     }
@@ -58,11 +59,11 @@ abstract class AppValidators {
 
   static String? validatePhoneNumber(String? value) {
     if (value == null) {
-      return 'this field is required ';
+      return AppStrings.thisFieldRequired;
     } else if (int.tryParse(value.trim()) == null) {
-      return 'enter numbers only';
+      return AppStrings.enterNumbersOnly;
     } else if (value.trim().length != 11) {
-      return 'value must equal 11 digit';
+      return AppStrings.valueMustEqual11Digit;
     } else {
       return null;
     }

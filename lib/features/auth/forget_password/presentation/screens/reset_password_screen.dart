@@ -1,3 +1,4 @@
+import 'package:exam_app/features/auth/forget_password/presentation/widgets/custom_forget_password_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +10,6 @@ import '../../../../../core/widgets/custome_text_field.dart';
 import '../view_model/bloc/forget_password_events.dart';
 import '../view_model/bloc/forget_password_states.dart';
 import '../view_model/bloc/forget_password_view_model.dart';
-import '../widgets/custom_forget_password_text_widget.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({super.key});
@@ -59,7 +59,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 key: viewModel.resetPasswordFormKey,
                 child: Column(
                   children: [
-                    CustomForgetPasswordTextWidget(
+                    CustomForgetPasswordHeaderWidget(
                       text1: AppStrings.resetPassword,
                       text2: AppStrings.passwordValidationText,
                     ),

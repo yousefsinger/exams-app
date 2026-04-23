@@ -1,4 +1,5 @@
 import 'package:exam_app/core/values/app_routes.dart';
+import 'package:exam_app/features/auth/forget_password/presentation/widgets/custom_forget_password_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +11,6 @@ import '../../../../../core/values/app_styles.dart';
 import '../view_model/bloc/forget_password_events.dart';
 import '../view_model/bloc/forget_password_states.dart';
 import '../view_model/bloc/forget_password_view_model.dart';
-import '../widgets/custom_forget_password_text_widget.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -108,7 +108,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
             child: Column(
               children: [
-                CustomForgetPasswordTextWidget(
+                CustomForgetPasswordHeaderWidget(
                   text1: AppStrings.emailVerification,
                   text2:
                       AppStrings.enterYourCodeText,

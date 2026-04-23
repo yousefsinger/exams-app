@@ -12,14 +12,7 @@ class ResetPasswordUseCase {
   ResetPasswordUseCase(this._forgetPasswordRepoContract);
 
   Future<BaseResponse<ResetPasswordEntity>> callResetPassword(
-    String email,
-    String newPassword,
-  ) {
-    final request = ResetPasswordRequest(
-      email: email,
-      newPassword: newPassword,
-    );
+      ResetPasswordRequest request) {
     return _forgetPasswordRepoContract.resetPassword(request);
   }
-
 }

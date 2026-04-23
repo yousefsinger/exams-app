@@ -62,7 +62,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               key: viewModel.emailFormKey,
               child: Column(
                 children: [
-                  CustomForgetPasswordTextWidget(
+                  CustomForgetPasswordHeaderWidget(
                     text1: AppStrings.forgetPassword,
                     text2: AppStrings.enterEmailText,
                   ),
@@ -74,7 +74,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     onChanged: (Tab p1) {},
                   ),
                   CustomElevatedButton(
-                    text: 'Continue',
+                    text: AppStrings.continueText,
                     onPressed: () {
                       viewModel.doIntent(ValidateEmailEvent());
                     },

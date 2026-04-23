@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+
 import '../../../../../config/api/base_response.dart';
 import '../../data/models/verify_password/verify_reset_code_request.dart';
 import '../models/verifiy_reset_code_entity.dart';
@@ -11,9 +12,8 @@ class VerifyResetPasswordUseCase {
   VerifyResetPasswordUseCase(this._forgetPasswordRepoContract);
 
   Future<BaseResponse<VerifiyResetCodeEntity>> callVerifyResetCode(
-    String resetCode,
+    VerifyResetCodeRequest request,
   ) {
-    final request = VerifyResetCodeRequest(resetCode: resetCode);
     return _forgetPasswordRepoContract.verifyResetCode(request);
   }
 }
