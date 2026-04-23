@@ -12,6 +12,10 @@ class LoginDataSourceImpl implements LoginDataSourceContract {
 
   @override
   Future<LoginResponse> login(String email, String password) async {
-    return await loginApiClient.login({"email": email, "password": password});
+    final response = await loginApiClient.login({
+      "email": email,
+      "password": password,
+    });
+    return response;
   }
 }

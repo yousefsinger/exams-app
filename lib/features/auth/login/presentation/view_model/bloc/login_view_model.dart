@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../../config/api/base_states.dart';
+import '../../../../../../config/cashe/user_session.dart';
 import '../../../domain/model/user.dart';
 import '../../../domain/use_cases/login_use_case.dart';
 import 'login_events.dart';
@@ -12,12 +13,13 @@ import 'login_states.dart';
 @injectable
 class LoginViewModel extends Cubit<LoginStates> {
   final LoginUseCase _loginUseCase;
+  final UserSession _userSession;
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController(text: 'yosefsnger@gmail.com');
+  final TextEditingController passwordController = TextEditingController(text: 'GoOo136@@');
 
-  LoginViewModel(this._loginUseCase) : super(LoginStates());
+  LoginViewModel(this._loginUseCase, this._userSession) : super(LoginStates());
 
   void doIntent(LoginEvent event) {
     switch (event) {
@@ -47,6 +49,20 @@ class LoginViewModel extends Cubit<LoginStates> {
 
     switch (response) {
       case SuccessResponse<User>():
+      // --- التعديل هنا ---
+        final user = response.data;
+        if (user != null) {
+          // تأكد أن user.token ليس null أو فارغ
+          _userSession.token = user.token;
+          _userSession.currentUser = user;
+
+          // سطر الطباعة ده مهم جداً عشان نتأكد إن الحفظ تم
+          print("✅ LOGIN SUCCESS: Token saved to session: ${_userSession.token}");
+        } else {
+          print("⚠️ LOGIN SUCCESS but User Data is NULL");
+        }
+        // ------------------
+
         emit(
           state.copyWith(
             loginState: BaseState<User>(
@@ -56,6 +72,7 @@ class LoginViewModel extends Cubit<LoginStates> {
           ),
         );
       case ErrorResponse<User>():
+        print("❌ LOGIN ERROR: ${response.errorMessage}");
         emit(
           state.copyWith(
             loginState: BaseState<User>(

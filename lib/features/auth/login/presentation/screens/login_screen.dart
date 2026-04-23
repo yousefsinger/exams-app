@@ -35,6 +35,8 @@ class LoginScreen extends StatelessWidget {
                   backgroundColor: Colors.green,
                 ),
               );
+
+                Navigator.pushReplacementNamed(context, AppRoutes.home);
             }
 
             if (loginState?.errorMessage != null) {

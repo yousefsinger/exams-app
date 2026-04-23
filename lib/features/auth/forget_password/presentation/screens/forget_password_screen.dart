@@ -1,3 +1,4 @@
+import 'package:exam_app/core/values/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,7 +54,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               },
               icon: const Icon(Icons.arrow_back_ios_new_outlined),
             ),
-            title: const Text('Forget Password'),
+            title: const Text(AppStrings.forgetPassword),
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -61,21 +62,19 @@ class ForgetPasswordScreen extends StatelessWidget {
               key: viewModel.emailFormKey,
               child: Column(
                 children: [
-                  CustomForgetPasswordTextWidget(
-                    text1: 'Forget password',
-                    text2:
-                        'Please enter your email associated to\n  your account',
+                  CustomForgetPasswordHeaderWidget(
+                    text1: AppStrings.forgetPassword,
+                    text2: AppStrings.enterEmailText,
                   ),
                   CustomTextField(
                     controller: viewModel.emailController,
-                    label: 'Email',
-                    hint: 'Enter your email',
+                    label: AppStrings.email,
+                    hint: AppStrings.enterEmail,
                     validator: AppValidators.validateEmail,
-                    errorText: '',
                     onChanged: (Tab p1) {},
                   ),
                   CustomElevatedButton(
-                    text: 'Continue',
+                    text: AppStrings.continueText,
                     onPressed: () {
                       viewModel.doIntent(ValidateEmailEvent());
                     },
