@@ -28,12 +28,12 @@ abstract class AppTheme {
 
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: AppColors.darkGrayColor, width: 2),
+        borderSide: BorderSide(color: AppColors.errorColor, width: 2),
       ),
 
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: AppColors.darkGrayColor),
+        borderSide: BorderSide(color: AppColors.errorColor),
       ),
 
       hintStyle: AppStyles.hintText14LightGray,

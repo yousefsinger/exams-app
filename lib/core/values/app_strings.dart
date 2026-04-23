@@ -24,5 +24,18 @@ abstract class AppStrings {
   static const String explore = 'Explore';
   static const String result = 'Result';
   static const String profile = 'Profile';
+  static const String editProfile = 'Edit profile';
+  static const String userName = 'User name';
+  static const String lastName = 'Last name';
+  static const String firstName = 'First name';
+  static const String phoneNumber = 'Phone number';
+  static const String change = 'Change';
+  static const String update = 'Update';
+  static const String currentPassword = 'Current password';
+  static const String invalidPassword = 'Invalid password';
+  static const String notMatchPassword = 'Password not matched';
+  static const String passwordHint = '********';
+  static const String passwordChangedSuccessfully = 'Password changed successfully';
+  static const String profileUpdatedSuccessfully = 'Profile Updated successfully';
 
 }

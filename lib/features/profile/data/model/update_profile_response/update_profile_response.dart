@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
 import '../../../domain/model/update_profile_entity.dart';
-import '../user_response/user_response.dart';
+import '../user_response/user.dart';
 
 
 part 'update_profile_response.g.dart';
@@ -16,7 +16,7 @@ class UpdateProfileResponse {
   @JsonKey(name: "message")
   String? message;
   @JsonKey(name: "user")
-  UserModel? user;
+  User? user;
 
   UpdateProfileResponse({
     this.message,
@@ -26,6 +26,6 @@ class UpdateProfileResponse {
   factory UpdateProfileResponse.fromJson(Map<String, dynamic> json) => _$UpdateProfileResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$UpdateProfileResponseToJson(this);
-  UpdateProfileEntity toDomain() => UpdateProfileEntity(message: message ?? "", user: user?.toDomain());
+  UpdateProfileEntity toDomain() => UpdateProfileEntity(message: message ?? "", userData: user?.toDomain());
 }
 

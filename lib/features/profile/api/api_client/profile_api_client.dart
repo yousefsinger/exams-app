@@ -8,6 +8,7 @@ import 'package:retrofit/http.dart';
 import '../../data/model/change_password_request/change_password_request.dart';
 import '../../data/model/update_profile_request/update_profile_request.dart';
 import '../../data/model/update_profile_response/update_profile_response.dart';
+import '../../data/model/user_response/user_response.dart';
 
 part 'profile_api_client.g.dart';
 
@@ -16,7 +17,8 @@ part 'profile_api_client.g.dart';
 abstract class ProfileApiClient {
   @factoryMethod
   factory ProfileApiClient(Dio dio) = _ProfileApiClient;
-
+  @GET(ApiConstants.getUserData)
+  Future<UserResponse> getUserData();
   @PUT(ApiConstants.updateProfile)
   Future<UpdateProfileResponse> updateProfile(
       @Body() UpdateProfileRequest request);
