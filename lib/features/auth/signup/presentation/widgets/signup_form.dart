@@ -1,3 +1,4 @@
+import 'package:exam_app/core/values/app_routes.dart';
 import 'package:exam_app/core/widgets/custom_elevated_button.dart';
 import 'package:exam_app/core/widgets/custom_text_link.dart';
 import 'package:exam_app/core/widgets/custome_text_field.dart';
@@ -187,7 +188,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 CustomTextLink(
                   text: 'Login',
                   onTap: () {
-                    // TODO: Navigator.pushNamed(context, AppRoutes.login);
+                    Navigator.pushNamed(context, AppRoutes.login);
                   },
                 ),
               ],
@@ -199,6 +200,3 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 }
-
-
-
