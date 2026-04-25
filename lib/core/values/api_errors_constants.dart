@@ -20,6 +20,7 @@ abstract class ApiErrorsConstants {
   static const String badCertificateError = 'Security certificate error.';
   static const String unknownError = 'An unexpected error occurred.';
   static const String defaultError = 'Something went wrong. Please try again.';
+  static const String userNotFound = 'User not found.';
   // New errors for ErrorHandle
   static const String userError = "User data or token is missing.";
   static const String userSessionError = "Failed to save user session:";

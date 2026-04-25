@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'dart:convert';
 
 import '../../../domain/model/change_password_entity.dart';
 

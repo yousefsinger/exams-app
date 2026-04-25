@@ -21,8 +21,10 @@ class ChangePasswordViewModel extends Cubit<ChangePasswordStates> {
     switch (event) {
       case SubmitChangePassword():
         _changePassword(event);
+        break;
       case ClearCurrentPasswordError():
         emit(state.copyWith(currentPasswordError: null));
+        break;
     }
   }
 

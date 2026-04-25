@@ -1,5 +1,5 @@
+import 'package:exam_app/features/profile/presentation/view_model/profile/profile_events.dart';
 import 'package:exam_app/features/profile/presentation/view_model/profile/profile_states.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -17,19 +17,31 @@ class ProfileViewModel extends Cubit<ProfileState> {
   final UpdateProfileUseCase _updateProfileUseCase;
 
   ProfileViewModel(
-    this._getUserUseCase,
-    this._updateProfileUseCase,
-  ) : super(const ProfileState());
+      this._getUserUseCase,
+      this._updateProfileUseCase,
+      ) : super(const ProfileState());
 
-  final nameController = TextEditingController();
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final phoneController = TextEditingController();
+  void doIntent(ProfileEvents event) {
+    switch (event) {
+      case GetUserEvent():
+        _getUser();
+        break;
 
-  final formKey = GlobalKey<FormState>();
+      case UpdateProfileEvent():
+        _updateProfile(event);
+        break;
 
-  Future<void> getUser() async {
+      case EnableEditEvent():
+        emit(state.copyWith(isEditing: true));
+        break;
+
+      case DisableEditEvent():
+        emit(state.copyWith(isEditing: false));
+        break;
+    }
+  }
+
+  Future<void> _getUser() async {
     emit(state.copyWith(
       getUserState: const BaseState(isLoading: true),
     ));
@@ -38,16 +50,8 @@ class ProfileViewModel extends Cubit<ProfileState> {
 
     switch (response) {
       case SuccessResponse<UserEntity>():
-        final user = response.data;
-
-        nameController.text = user.userName ;
-        firstNameController.text = user.firstName ;
-        lastNameController.text = user.lastName ;
-        emailController.text = user.email ;
-        phoneController.text = user.phone ;
-
         emit(state.copyWith(
-          getUserState: BaseState(data: user),
+          getUserState: BaseState(data: response.data),
         ));
 
       case ErrorResponse<UserEntity>():
@@ -59,28 +63,18 @@ class ProfileViewModel extends Cubit<ProfileState> {
     }
   }
 
-  void enableEdit() {
-    emit(state.copyWith(isEditing: true));
-  }
-
-  void disableEdit() {
-    emit(state.copyWith(isEditing: false));
-  }
-
-  Future<void> updateProfile() async {
-    if (!(formKey.currentState?.validate() ?? false)) return;
-
+  Future<void> _updateProfile(UpdateProfileEvent event) async {
     emit(state.copyWith(
       updateProfileState: const BaseState(isLoading: true),
     ));
 
     final response = await _updateProfileUseCase.call(
       UpdateProfileRequest(
-        username: nameController.text,
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
-        email: emailController.text,
-        phone: phoneController.text,
+        username: event.username,
+        firstName: event.firstName,
+        lastName: event.lastName,
+        email: event.email,
+        phone: event.phone,
       ),
     );
 

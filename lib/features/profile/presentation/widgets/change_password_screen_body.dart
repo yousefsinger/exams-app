@@ -19,7 +19,8 @@ class ChangePasswordScreenBody extends StatefulWidget {
       _ChangePasswordScreenBodyState();
 }
 
-class _ChangePasswordScreenBodyState extends State<ChangePasswordScreenBody> {
+class _ChangePasswordScreenBodyState
+    extends State<ChangePasswordScreenBody> {
   final _formKey = GlobalKey<FormState>();
 
   final currentPasswordController = TextEditingController();
@@ -36,8 +37,8 @@ class _ChangePasswordScreenBodyState extends State<ChangePasswordScreenBody> {
 
     currentPasswordController.addListener(() {
       context.read<ChangePasswordViewModel>().doIntent(
-            ClearCurrentPasswordError(),
-          );
+        ClearCurrentPasswordError(),
+      );
     });
   }
 
@@ -52,18 +53,18 @@ class _ChangePasswordScreenBodyState extends State<ChangePasswordScreenBody> {
   void onSubmit() {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<ChangePasswordViewModel>().doIntent(
-            SubmitChangePassword(
-              oldPassword: currentPasswordController.text,
-              newPassword: newPasswordController.text,
-              confirmPassword: confirmPasswordController.text,
-            ),
-          );
+        SubmitChangePassword(
+          oldPassword: currentPasswordController.text,
+          newPassword: newPasswordController.text,
+          confirmPassword: confirmPasswordController.text,
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ChangePasswordViewModel, ChangePasswordStates>(
+    return BlocListener<ChangePasswordViewModel, ChangePasswordStates>(
       listener: (context, state) {
         final result = state.changePassword;
 
@@ -78,96 +79,131 @@ class _ChangePasswordScreenBodyState extends State<ChangePasswordScreenBody> {
           Navigator.pop(context);
         }
       },
-      builder: (context, state) {
-        final isLoading = state.changePassword?.isLoading ?? false;
+      child: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                AppBar(
+                  title: const Text(AppStrings.resetPassword),
+                  leading: IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(Icons.arrow_back_ios_new),
+                  ),
+                ),
 
-        return SafeArea(
-          child: Form(
-            key: _formKey,
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  AppBar(
-                    title: const Text(AppStrings.resetPassword),
-                    leading: IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back_ios_new),
-                    ),
-                  ),
-                  SizedBox(height: 30.h),
-                  CustomTextField(
-                    controller: currentPasswordController,
-                    label: AppStrings.currentPassword,
-                    isObscureText: !isCurrentVisible,
-                    validator: AppValidators.validatePassword,
-                    errorText: state.currentPasswordError,
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        isCurrentVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          isCurrentVisible = !isCurrentVisible;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  CustomTextField(
-                    controller: newPasswordController,
-                    label: AppStrings.newPassword,
-                    isObscureText: !isNewVisible,
-                    validator: AppValidators.validatePassword,
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        isNewVisible ? Icons.visibility : Icons.visibility_off,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          isNewVisible = !isNewVisible;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  CustomTextField(
-                    controller: confirmPasswordController,
-                    label: AppStrings.confirmPassword,
-                    isObscureText: !isConfirmVisible,
-                    validator: (value) => AppValidators.validateConfirmPassword(
-                      value,
-                      newPasswordController.text,
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        isConfirmVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          isConfirmVisible = !isConfirmVisible;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 40.h),
-                  isLoading
-                      ? const CircularProgressIndicator()
-                      : CustomElevatedButton(
-                          text: AppStrings.update,
-                          isValid: true,
-                          onPressed: onSubmit,
+                SizedBox(height: 30.h),
+
+                StatefulBuilder(
+                  builder: (context, setLocalState) {
+                    return CustomTextField(
+                      controller: currentPasswordController,
+                      label: AppStrings.currentPassword,
+                      isObscureText: !isCurrentVisible,
+                      validator: AppValidators.validatePassword,
+                      errorText: context
+                          .watch<ChangePasswordViewModel>()
+                          .state
+                          .currentPasswordError,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          isCurrentVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                         ),
-                ],
-              ),
+                        onPressed: () {
+                          setLocalState(() {
+                            isCurrentVisible = !isCurrentVisible;
+                          });
+                        },
+                      ),
+                    );
+                  },
+                ),
+
+                SizedBox(height: 16.h),
+
+                StatefulBuilder(
+                  builder: (context, setLocalState) {
+                    return CustomTextField(
+                      controller: newPasswordController,
+                      label: AppStrings.newPassword,
+                      isObscureText: !isNewVisible,
+                      validator: AppValidators.validatePassword,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          isNewVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setLocalState(() {
+                            isNewVisible = !isNewVisible;
+                          });
+                        },
+                      ),
+                    );
+                  },
+                ),
+
+                SizedBox(height: 16.h),
+
+                StatefulBuilder(
+                  builder: (context, setLocalState) {
+                    return CustomTextField(
+                      controller: confirmPasswordController,
+                      label: AppStrings.confirmPassword,
+                      isObscureText: !isConfirmVisible,
+                      validator:
+                          (value) => AppValidators.validateConfirmPassword(
+                        value,
+                        newPasswordController.text,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          isConfirmVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setLocalState(() {
+                            isConfirmVisible = !isConfirmVisible;
+                          });
+                        },
+                      ),
+                    );
+                  },
+                ),
+
+                SizedBox(height: 40.h),
+
+                BlocBuilder<ChangePasswordViewModel,
+                    ChangePasswordStates>(
+                  builder: (context, state) {
+                    final isLoading =
+                        state.changePassword?.isLoading ?? false;
+
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CustomElevatedButton(
+                          text: AppStrings.update,
+                          isValid: !isLoading,
+                          onPressed: isLoading ? null : onSubmit,
+                        ),
+                        if (isLoading)
+                          const CircularProgressIndicator(),
+                      ],
+                    );
+                  },
+                ),
+              ],
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

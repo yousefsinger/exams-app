@@ -24,7 +24,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       final response = await _apiClient.getUserData();
 
       if (response.user == null) {
-        return ErrorResponse(errorMessage: 'User data not found');
+        return ErrorResponse(errorMessage: ApiErrorsConstants.userNotFound);
       }
 
       return SuccessResponse(data: response.user!);
