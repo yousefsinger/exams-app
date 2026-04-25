@@ -9,7 +9,7 @@ import '../models/models.dart';
 import 'exam_datasource.dart';
 
 // ── Implementation ────────────────────────────────────────────────────────
-
+@injectable
 @LazySingleton(as: ExamRemoteDataSource)
 class ExamRemoteDataSourceImpl implements ExamRemoteDataSource {
   final ExamApiClient _apiClient;
