@@ -51,13 +51,18 @@ abstract class AppStyles {
   );
   static TextStyle regular16Black = GoogleFonts.inter(
     fontSize: 16,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w600,
     color: AppColors.blackColor,
   );
   static TextStyle regular12Black = GoogleFonts.inter(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     color: AppColors.blackColor,
+  );
+  static TextStyle regular12Primary = GoogleFonts.inter(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: AppColors.primaryColor,
   );
   static TextStyle errorText = GoogleFonts.inter(
     fontSize: 12,

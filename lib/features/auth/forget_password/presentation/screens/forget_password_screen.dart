@@ -71,10 +71,9 @@ class ForgetPasswordScreen extends StatelessWidget {
                     label: AppStrings.email,
                     hint: AppStrings.enterEmail,
                     validator: AppValidators.validateEmail,
-                    onChanged: (Tab p1) {},
                   ),
                   CustomElevatedButton(
-                    text: 'Continue',
+                    text: AppStrings.continueText,
                     onPressed: () {
                       viewModel.doIntent(ValidateEmailEvent());
                     },

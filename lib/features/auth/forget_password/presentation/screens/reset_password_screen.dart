@@ -82,7 +82,6 @@ class ResetPasswordScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      onChanged: (Tab p1) {},
                     ),
                     SizedBox(height: 20.h),
                     CustomTextField(
@@ -108,7 +107,6 @@ class ResetPasswordScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      onChanged: (Tab p1) {},
                     ),
                     SizedBox(height: 30.h),
                     CustomElevatedButton(

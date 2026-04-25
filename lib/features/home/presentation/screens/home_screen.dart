@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/values/app_colors.dart';
-import '../../profile_screen.dart';
+import '../../../profile/presentation/screens/profile_screen.dart';
 import '../../result_screen.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 import '../widgets/home_screen_body.dart';

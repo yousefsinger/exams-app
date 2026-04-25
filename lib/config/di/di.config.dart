@@ -17,8 +17,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
-import '../../features/auth/forget_password/api/api_client/api_client.dart'
-    as _i558;
 import '../../features/auth/forget_password/api/api_client/forget_password_api_client.dart'
     as _i478;
 import '../../features/auth/forget_password/api/data_sources/forget_password_data_source_impl.dart'
@@ -110,6 +108,24 @@ import '../../features/home/domain/repository/home_repo_contract.dart' as _i968;
 import '../../features/home/domain/use_cases/home_use_case.dart' as _i933;
 import '../../features/home/presentation/view_model/bloc/home_view_model.dart'
     as _i48;
+import '../../features/profile/api/api_client/profile_api_client.dart' as _i699;
+import '../../features/profile/api/data_sources/profile_data_source_impl.dart'
+    as _i921;
+import '../../features/profile/data/data_sources/profile_remote_data_source_contract.dart'
+    as _i427;
+import '../../features/profile/data/repository/profile_repo_impl.dart' as _i265;
+import '../../features/profile/domain/repository/profile_repo_contract.dart'
+    as _i722;
+import '../../features/profile/domain/use_cases/change_password_use_case.dart'
+    as _i266;
+import '../../features/profile/domain/use_cases/get_user_use_case.dart'
+    as _i468;
+import '../../features/profile/domain/use_cases/update_profile_use_case.dart'
+    as _i186;
+import '../../features/profile/presentation/view_model/change_password/change_password_view_model.dart'
+    as _i967;
+import '../../features/profile/presentation/view_model/profile/profile_view_model.dart'
+    as _i597;
 import '../api/dio_module.dart' as _i784;
 import '../cashe/secure_storage.dart' as _i486;
 import '../cashe/user_session.dart' as _i157;
@@ -165,11 +181,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => dioModule.signupApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i315.ExamApiClient>(
         () => dioModule.provideExamApiClient(gh<_i361.Dio>()));
-    gh.lazySingleton<_i558.ApiClient>(() => _i558.ApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i478.ForgetPasswordApiClient>(
         () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i866.HomeApiClient>(
         () => _i866.HomeApiClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i699.ProfileApiClient>(
+        () => _i699.ProfileApiClient(gh<_i361.Dio>()));
     gh.factory<_i598.ExamsApiClient>(
         () => _i598.ExamsApiClient(gh<_i361.Dio>()));
     gh.factory<_i582.HomeRemoteDatasourceContract>(
@@ -197,6 +214,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i649.ForgetPasswordRepoContract>(() =>
         _i1026.ForgetPasswordRepoImple(
             gh<_i236.ForgetPasswordRemoteDataSourceContract>()));
+    gh.factory<_i427.ProfileRemoteDataSource>(
+        () => _i921.ProfileRemoteDataSourceImpl(gh<_i699.ProfileApiClient>()));
     gh.factory<_i48.HomeViewModel>(
         () => _i48.HomeViewModel(gh<_i933.HomeUseCase>()));
     gh.factory<_i106.SignUpRepoContract>(
@@ -219,6 +238,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i195.VerifyResetPasswordUseCase>(() =>
         _i195.VerifyResetPasswordUseCase(
             gh<_i649.ForgetPasswordRepoContract>()));
+    gh.factory<_i722.ProfileRepoContract>(
+        () => _i265.ProfileRepoImpl(gh<_i427.ProfileRemoteDataSource>()));
     gh.factory<_i776.ForgetPasswordViewModel>(
         () => _i776.ForgetPasswordViewModel(
               gh<_i913.ForgetPasswordUseCase>(),
@@ -231,6 +252,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i477.GetExamQuestionsUseCase(gh<_i117.ExamRepository>()));
     gh.factory<_i410.SignUpUseCase>(
         () => _i410.SignUpUseCase(gh<_i106.SignUpRepoContract>()));
+    gh.factory<_i468.GetUserUseCase>(
+        () => _i468.GetUserUseCase(gh<_i722.ProfileRepoContract>()));
+    gh.factory<_i186.UpdateProfileUseCase>(
+        () => _i186.UpdateProfileUseCase(gh<_i722.ProfileRepoContract>()));
+    gh.factory<_i597.ProfileViewModel>(() => _i597.ProfileViewModel(
+          gh<_i468.GetUserUseCase>(),
+          gh<_i186.UpdateProfileUseCase>(),
+        ));
+    gh.factory<_i266.ChangePasswordUseCase>(
+        () => _i266.ChangePasswordUseCase(gh<_i722.ProfileRepoContract>()));
+    gh.factory<_i967.ChangePasswordViewModel>(
+        () => _i967.ChangePasswordViewModel(gh<_i266.ChangePasswordUseCase>()));
     gh.factory<_i842.SignUpCubit>(
         () => _i842.SignUpCubit(gh<_i410.SignUpUseCase>()));
     gh.factory<_i947.LoginViewModel>(() => _i947.LoginViewModel(

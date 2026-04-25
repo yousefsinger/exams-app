@@ -12,7 +12,6 @@ import 'package:exam_app/features/score/presentation/screen/exam_score_screen.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'features/auth/login/presentation/screens/login_screen.dart';
 import 'features/auth/signup/presentation/cubit/signup_cubit.dart';
 import 'features/auth/signup/presentation/pages/sign_up_screen.dart';
@@ -20,6 +19,8 @@ import 'features/exams/presentation/screens/exam_instructions_screen.dart';
 import 'features/exams/presentation/screens/exams_screen.dart';
 import 'features/examscreen/presentation/cubit/exam_cubit.dart';
 import 'features/examscreen/presentation/screen/exam_screen.dart';
+import 'features/profile/presentation/screens/change_password_screen.dart';
+import 'features/profile/presentation/view_model/profile/profile_view_model.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,9 @@ void main() {
         ),
         BlocProvider(
           create: (_) => getIt<HomeViewModel>(),
+        ),
+        BlocProvider(
+          create: (_) => getIt<ProfileViewModel>(),
         ),
         BlocProvider(
           create: (_) => getIt<ExamCubit>(),
@@ -70,6 +74,7 @@ class ExamApp extends StatelessWidget {
             AppRoutes.otp: (_) => const OtpScreen(),
             AppRoutes.resetPassword: (_) => const ResetPasswordScreen(),
             AppRoutes.home: (_) => const HomeScreen(),
+            AppRoutes.changePasswordScreen: (_) => const ChangePasswordScreen(),
             AppRoutes.examScreen: (ctx) {
               final args =
               ModalRoute.of(ctx)!.settings.arguments as ExamArgs;
