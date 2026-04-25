@@ -1,3 +1,4 @@
+import 'package:exam_app/core/values/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,6 +31,10 @@ class HomeScreenItem extends StatelessWidget {
         child: InkWell(
           onTap: () {
             debugPrint('Item tapped: $name');
+            Navigator.pushNamed(context, AppRoutes.exams, arguments: {
+              'subjectId': subjectId,
+              'subjectName': name,
+            });
           },
           child: Row(
             children: [
