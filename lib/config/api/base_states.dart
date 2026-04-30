@@ -1,11 +1,13 @@
-sealed class BaseResponse<T> {}
+import 'package:equatable/equatable.dart';
 
+class BaseState<T> extends Equatable {
+  final bool? isLoading;
+  final String? errorMessage;
+  final T? data;
 
-class SuccessBaseResponse<T> extends BaseResponse<T>{
-  T data;
-  SuccessBaseResponse({required this.data});
-}
-class ErrorBaseResponse<T> extends BaseResponse<T>{
-  String errorMsg;
-  ErrorBaseResponse({required this.errorMsg});
+  const BaseState({this.isLoading = false, this.errorMessage, this.data});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [isLoading, errorMessage, data];
 }
